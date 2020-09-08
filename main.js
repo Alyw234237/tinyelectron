@@ -5,13 +5,14 @@ const path = require('path');
 const fs = require('fs');
 const beautify = require('js-beautify').html;
 const isDev = process.mainModule.filename.indexOf('app.asar') === -1;
+const { clipboard } = require('electron')
 
 let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 680,
+    width: 800,
+    height: 650,
     webPreferences: {
       nodeIntegration: true,
     }
@@ -26,7 +27,7 @@ function createWindow() {
   if (isDev) {
     // Open the DevTools.
     //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
   }
   mainWindow.on('closed', () => mainWindow = null);
 }
@@ -58,6 +59,10 @@ let working_directory;
 
 function load() {
   dialog.showOpenDialog({ properties: ["openFile"], defaultPath: working_directory }, function (file) {
+    // Prevent error message if click cancel
+    if(!file[0]) {
+      return;
+    }
     fs.readFile(file[0], 'utf8', (err, data) => {
       if (err) throw err;
       change_working_directory(file[0]);
@@ -81,6 +86,8 @@ function saveas(output) {
   var options = {
     filters: [
       { name: 'html', extensions: ['htm', 'html'] },
+      { name: 'txt', extensions: ['txt'] },
+      { name: 'md', extensions: ['md'] },
       { name: 'All Files', extensions: ['*'] }
     ],
     defaultPath: working_directory
@@ -97,3 +104,4 @@ function change_working_directory(new_path) {
   working_directory = path.dirname(new_path);
   mainWindow.webContents.send('change-cwd', working_directory);
 }
+
