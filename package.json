@@ -1,22 +1,22 @@
 {
-  "name": "tiny-electron",
+  "name": "tinyelectron",
   "version": "1.0.0",
-  "description": "A basic electron wrapper for TinyMCE",
+  "description": "An Electron rich text editor written with TinyMCE.",
   "main": "main.js",
-  "repository": "https://github.com/Moliman/tiny-electron",
+  "repository": "https://github.com/Alyw234237/tinyelectron",
   "keywords": [
     "Electron",
     "TinyMCE"
   ],
-  "author": "Moliman",
-  "license": "MIT",
+  "author": "Aly W.",
+  "license": "",
   "dependencies": {
-    "tinymce": "^5.4.2",
-    "js-beautify": "^1.10.2"
+    "js-beautify": "^1.10.2",
+    "tinymce": "^5.4.2"
   },
   "devDependencies": {
-    "electron": "^6.0.3",
-    "electron-builder": "^21.2.0"
+    "electron": "^10.1.1",
+    "electron-builder": "^22.8.0"
   },
   "build": {
     "appId": "TinyMCE - Electron",
