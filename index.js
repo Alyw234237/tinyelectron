@@ -104,7 +104,7 @@ tinymce.init({
   paste_remove_styles_if_webkit: true,
   paste_strip_class_attributes: true,
   paste_as_text: false,
-  paste_word_valid_elements: "p,br,b,strong,i,em,u,strike,s,del,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,a,img,blockquote,code,pre,samp,table,tr,td,th,hr",
+  paste_word_valid_elements: "p,br,b,strong,i,em,u,strike,s,del,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,a,img,blockquote,code,pre,samp,table,tr,td,th,thread,tbody,hr",
 
   style_formats: [
     { title: 'Paragraph', format: 'p' },
@@ -137,8 +137,9 @@ tinymce.init({
     {start: '> ', cmd: 'mceBlockQuote'},
     {start: '`', end: '`', format: 'code'},
     {start: '~~', end: '~~', format: 'strikethrough'},
-    {start: '---', replacement: '<hr/>'},
-    {start: '--', replacement: '—'},
+    {start: '---', replacement: '—'},
+    {start: '--', replacement: '–'},
+    {start: '===', replacement: '<hr />'},
   ],
   toolbar_sticky: true,
   resize: false,

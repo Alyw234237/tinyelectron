@@ -3943,7 +3943,7 @@
                 var checkitems = node.querySelectorAll(".task-list-item");
                 var allItems = node.querySelectorAll("li");
                 if (checkitems.length === allItems.length) return parseTasklists(checkitems);
-                console.log("hackListParser", node);
+                //console.log("hackListParser", node);
                 var txt = "";
                 if (!node.hasChildNodes()) {
                   return "";
@@ -3963,12 +3963,12 @@
                 var listPrefix = !isNotNested ? "\n" : "";
                 var listSuffix = isNotNested ? "\n\x3c!-- Comment ends this list --\x3e\n" : "";
                 var result = listPrefix + txt.trim() + listSuffix;
-                console.log({
+                /*console.log({
                   listPrefix: listPrefix,
                   txt: txt,
                   txtTrimmed: txt.trim(),
                   suffix: listSuffix
-                });
+                });*/
                 return result;
               };
               var originalListParser = sdown.subParser("makeMarkdown.list");
