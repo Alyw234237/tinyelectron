@@ -15,8 +15,8 @@
     "tinymce": "^5.4.2"
   },
   "devDependencies": {
-    "electron": "^10.1.1",
-    "electron-builder": "^22.8.0"
+    "electron": "^6.0.3",
+    "electron-builder": "^21.2.0"
   },
   "build": {
     "appId": "TinyMCE - Electron",
