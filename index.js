@@ -83,7 +83,7 @@ tinymce.init({
   toolbar: 'undo redo | formatselect bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat | table image hr | markdown',
   // ^ Add these for custom buttons!: 'customInsertButton customDateButton'
   block_formats: 'Normal text=p; H1=h1; H2=h2; H3=h3; H4=h4; H5=h5; H6=h6',
-  plugins: 'code link image table markdown lists save searchreplace autolink charmap hr toc textpattern charmap emoticons menusave',
+  plugins: 'code link image table markdown lists paste save searchreplace autolink charmap hr toc textpattern charmap emoticons menusave',
   contextmenu_never_use_native: true,
   contextmenu: 'cut copy paste selectall',
   icons: 'custom',
@@ -99,11 +99,12 @@ tinymce.init({
     table: { title: 'Table', items: 'inserttable | row column cell | deletetable' },
     tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | code wordcount' },
   },
-  //paste_auto_cleanup_on_paste : true,
-  //paste_remove_styles: true,
+  paste_auto_cleanup_on_paste : true,
+  paste_remove_styles: true,
   //paste_remove_styles_if_webkit: true,
-  //paste_strip_class_attributes: true,
+  paste_strip_class_attributes: true,
   paste_as_text: false,
+  paste_word_valid_elements: "p,br,b,strong,i,em,u,strike,s,del,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,a,img,blockquote,code,pre,samp,table,tr,td,th,hr",
 
   style_formats: [
     { title: 'Paragraph', format: 'p' },
