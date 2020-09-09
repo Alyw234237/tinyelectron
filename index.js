@@ -99,9 +99,9 @@ tinymce.init({
     table: { title: 'Table', items: 'inserttable | row column cell | deletetable' },
     tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | code wordcount' },
   },
-  paste_auto_cleanup_on_paste : true,
+  paste_auto_cleanup_on_paste: true,
   paste_remove_styles: true,
-  //paste_remove_styles_if_webkit: true,
+  paste_remove_styles_if_webkit: true,
   paste_strip_class_attributes: true,
   paste_as_text: false,
   paste_word_valid_elements: "p,br,b,strong,i,em,u,strike,s,del,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,a,img,blockquote,code,pre,samp,table,tr,td,th,hr",
@@ -225,6 +225,18 @@ tinymce.init({
       ipcRenderer.send('call-quit');
     });
 
+    // Handle individual keyboard keys
+    editor.on('keydown', function(event) {
+      var key = event.keyCode || event.which;
+
+      // Insert 8 non-breaking spaces with tab key and disable normal tab key handling
+      if (key == 9) {
+          editor.insertContent('&emsp;&emsp;');
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+      }
+    });
   },
 
   init_instance_callback : function(editor) {
