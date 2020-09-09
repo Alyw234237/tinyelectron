@@ -12,5 +12,5 @@ To build executables:
 
 `yarn dist`
 
-To install as an application, run the appropriate executable (e.g., .exe, .deb) in the dist folder after build.
+To install as an application, run the appropriate executable (e.g., .exe, .deb) in the dist folder after building with yarn.
 
