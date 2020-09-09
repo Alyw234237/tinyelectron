@@ -80,7 +80,7 @@ tinymce.init({
   //content_css: 'document',
   content_css: 'tinymce-custom.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
-  toolbar: 'undo redo | formatselect bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat | table image hr | markdown',
+  toolbar: 'undo redo formatselect bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr markdown',
   // ^ Add these for custom buttons!: 'customInsertButton customDateButton'
   block_formats: 'Normal text=p; H1=h1; H2=h2; H3=h3; H4=h4; H5=h5; H6=h6',
   plugins: 'code link image table markdown lists paste save searchreplace autolink charmap hr toc textpattern charmap emoticons menusave',
