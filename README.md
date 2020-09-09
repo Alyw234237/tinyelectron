@@ -1,3 +1,15 @@
-# tiny-electron
+# tinyelectron
 
-A basic electron wrapper forked from this [project](https://github.com/bmaranville/el-tiny-editor), rewritted and modernised with the most recent version of TinyMCE and including every basic plugins.
+A custom rich-text editor forked from [Moliman/tiny-electron](https://github.com/Moliman/tiny-electron) (originally by [bmaranville/el-tiny-editor](https://github.com/bmaranville/el-tiny-editor). Uses [Electron](https://www.electronjs.org/) and [TinyMCE 5](https://github.com/tinymce/tinymce).
+
+To install dependencies and run:
+
+`npm install
+npm start`
+
+To build executables:
+
+`yarn dist`
+
+To install as an application, run the appropriate executabe in dist (e.g., .deb) after building with yarn.
+
