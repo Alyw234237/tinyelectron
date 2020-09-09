@@ -122,6 +122,21 @@ hr {
   box-sizing: content-box;
 }
 
+blockquote {
+  border-left: 4px solid #ddd;
+  margin-left: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background: #fcfcfc;
+
+  > p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 table {
   border: 1px solid #dfe2e5;
   padding: 0;
@@ -149,10 +164,14 @@ th, td {
   font-size: 14px;
 }
 
+/* Make images always 100% width */
+
 img {
   width: 100%;
   height: auto;
 }
+
+/* Customize scrollbar appearance */
 
 ::-webkit-scrollbar {
   width: 7px;
