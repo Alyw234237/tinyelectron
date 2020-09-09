@@ -15,11 +15,13 @@ body {
 }
 
 a {
-  color: #8153ed;
+  /*color: #8153ed;*/ /* purple */
+  color: #0074D9; /* CLRS blue */
   text-decoration: none;
 }
 a:visited, a:hover, a:active {
-  color: #8153ed;
+  /*color: #8153ed;*/ /* purple */
+  color: #0074D9; /* CLRS blue */
 }
 
 a:not([class]) {
