@@ -3997,7 +3997,7 @@
                     }
                 }
               };
-              console.log("Patched Showdown (sdown) ...");
+              //console.log("Patched Showdown (sdown) ...");
               return {
                 switchToTagging: switchToTagging,
                 switchToOutput: switchToOutput,
@@ -15725,9 +15725,9 @@
               }
             },
           ];
-          console.log({
+          /*console.log({
             replacements: replacements
-          });
+          });*/
           memHintFooter.getOpt(comp).each(function(hintFooter) {
             Replacing.set(hintFooter, replacements);
           });

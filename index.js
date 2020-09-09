@@ -98,11 +98,14 @@ tinymce.init({
     { title: 'Heading 6', format: 'h6' },
     { title: 'Blockquote', format: 'blockquote' },
   ],
-
   link_context_toolbar: true,
   link_title: false,
   link_quicklink: true,
   table_appearance_options: false,
+  image_dimensions: false,
+  image_class_list: [
+    {title: 'Responsive', value: 'img-responsive'}
+  ],
   textpattern_patterns: [
     {start: '*', end: '*', format: 'italic'},
     {start: '**', end: '**', format: 'bold'},
@@ -209,4 +212,10 @@ tinymce.init({
 
   },
 
+  init_instance_callback : function(editor) {
+    // Hack to give text box focus at start up
+    document.getElementById("editor_ifr").focus();
+  },
+
 });
+
