@@ -5,7 +5,6 @@ const path = require('path');
 const fs = require('fs');
 const beautify = require('js-beautify').html;
 const isDev = process.mainModule.filename.indexOf('app.asar') === -1;
-const { clipboard } = require('electron')
 
 let mainWindow;
 
