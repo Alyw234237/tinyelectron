@@ -62,6 +62,7 @@ tinymce.init({
   selector: 'div.tinymce-full',
   height: "100%",
   theme: 'silver',
+  //content_css: 'document',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
   toolbar: 'undo redo | formatselect bold italic underline strikethrough superscript subscript numlist bullist link blockquote codeformat | table image hr | markdown',
   // ^ Add these for custom buttons!: 'customInsertButton customDateButton'
@@ -209,4 +210,3 @@ tinymce.init({
   },
 
 });
-

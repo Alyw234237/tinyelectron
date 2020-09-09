@@ -13,11 +13,14 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 650,
+    //frame: false,
     webPreferences: {
       nodeIntegration: true,
     }
   });
-  mainWindow.removeMenu();
+  if (!isDev) {
+    mainWindow.setMenuBarVisibility(false);
+  }
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
