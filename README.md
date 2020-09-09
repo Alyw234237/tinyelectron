@@ -4,9 +4,9 @@ A custom rich-text editor forked from [Moliman/tiny-electron](https://github.com
 
 To install dependencies and run:
 
-`npm install
+`npm install`
 
-npm start`
+`npm start`
 
 To build executables:
 
