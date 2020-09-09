@@ -48,6 +48,7 @@ tinymce.IconManager.add('custom', {
     newdoc: `<svg width="24" height="24"><path fill-rule="nonzero" d="M7 4a1 1 0 00-1 1v14c0 .6.4 1 1 1h10c.6 0 1-.4 1-1V9l-5-5H7zm6 5V5l4 4h-4z"></path></svg>`,
     undo: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M12.5 8c-2.7 0-5 1-6.9 2.6L2 7v9h9l-3.6-3.6A8 8 0 0120 16l2.4-.8a10.5 10.5 0 00-10-7.2z"></path></svg>`,
     redo: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M18.4 10.6a10.5 10.5 0 00-16.9 4.6L4 16a8 8 0 0112.7-3.6L13 16h9V7l-3.6 3.6z"></path></svg>`,
+    heading: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><polygon points="6.57 3 6.57 5.57 10.73 5.57 10.73 17 13.82 17 13.82 5.57 18 5.57 18 3 6.57 3"></polygon><polygon points="2 9.65 4.68 9.65 4.68 17 6.66 17 6.66 9.65 9.35 9.65 9.35 8 2 8 2 9.65"></polygon></svg>`,
     bold: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M14.6 11.8c.9-.6 1.4-1.4 1.4-2.3 0-2-1.6-3.5-3.5-3.5H7v12h6.3c1.7 0 3.2-1.5 3.2-3.3 0-1.3-.8-2.4-1.9-2.9zM9.5 8h2.8a1.5 1.5 0 110 3H9.4V8zm3.3 8H9.4v-3h3.3a1.5 1.5 0 110 3z"></path></svg>`,
     italic: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M10 6v2h2.6l-3.7 8H6v2h8v-2h-2.6l3.7-8H18V6z"></path></svg>`,
     underline: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M12 16a5 5 0 005-5V4h-2.5v7a2.5 2.5 0 01-5 0V4H7v7a5 5 0 005 5zm-6 2v2h12v-2H6z"></path></svg>`,
@@ -80,16 +81,16 @@ tinymce.init({
   //content_css: 'document',
   content_css: 'tinymce-custom.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
-  toolbar: 'undo redo formatselect bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr markdown',
-  // ^ Add these for custom buttons!: 'customInsertButton customDateButton'
-  block_formats: 'Normal text=p; H1=h1; H2=h2; H3=h3; H4=h4; H5=h5; H6=h6',
+  toolbar: 'newdocument undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr markdown searchreplace code',
+  toolbar_mode: 'floating', // NOT WORKING!
   plugins: 'code link image table markdown lists paste save searchreplace autolink charmap hr toc textpattern charmap emoticons menusave',
   contextmenu_never_use_native: true,
   contextmenu: 'cut copy paste selectall',
   icons: 'custom',
   elementpath: false,
   branding: false,
-  menubar: 'file edit insert format table tools', // 'false' to disable
+  menubar: false,
+  //menubar: 'file edit insert format table tools', // 'false' to disable
   /* Note: codeformat and blockquote icons vs. menu items kind of messed up */
   menu: {
     file: { title: 'File', items: 'newdocument restoredraft menuload menusave menusaveas | menuquit' },
@@ -105,17 +106,6 @@ tinymce.init({
   paste_strip_class_attributes: true,
   paste_as_text: false,
   paste_word_valid_elements: "p,br,b,strong,i,em,u,strike,s,del,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,a,img,blockquote,code,pre,samp,table,tr,td,th,thread,tbody,hr",
-
-  style_formats: [
-    { title: 'Paragraph', format: 'p' },
-    { title: 'Heading 1', format: 'h1' },
-    { title: 'Heading 2', format: 'h2' },
-    { title: 'Heading 3', format: 'h3' },
-    { title: 'Heading 4', format: 'h4' },
-    { title: 'Heading 5', format: 'h5' },
-    { title: 'Heading 6', format: 'h6' },
-    { title: 'Blockquote', format: 'blockquote' },
-  ],
   link_context_toolbar: true,
   link_title: false,
   link_quicklink: true,
@@ -159,6 +149,59 @@ tinymce.init({
 
   // https://www.tiny.cloud/docs/demo/custom-toolbar-button/
   setup: function (editor) {
+    var toggleState = false;
+
+    editor.ui.registry.addMenuButton('heading', {
+      tooltip: 'Heading',
+      icon: 'heading',
+      fetch: function (callback) {
+        var items = [
+          {
+            type: 'menuitem',
+            text: 'H1',
+            onAction: function () {
+              tinyMCE.execCommand('mceToggleFormat', false, 'h1');
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'H2',
+            onAction: function () {
+              tinyMCE.execCommand('mceToggleFormat', false, 'h2');
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'H3',
+            onAction: function () {
+              tinyMCE.execCommand('mceToggleFormat', false, 'h3');
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'H4',
+            onAction: function () {
+              tinyMCE.execCommand('mceToggleFormat', false, 'h4');
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'H5',
+            onAction: function () {
+              tinyMCE.execCommand('mceToggleFormat', false, 'h5');
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'H6',
+            onAction: function () {
+              tinyMCE.execCommand('mceToggleFormat', false, 'h6');
+            }
+          }
+        ];
+        callback(items);
+      }
+    });
 
     // Add custom insert button
     editor.ui.registry.addButton('customInsertButton', {
@@ -170,6 +213,16 @@ tinymce.init({
         editor.insertContent('&nbsp;<strong>It\'s my button!</strong>&nbsp;');
       }
     });
+
+    // Add custom insert button
+    /*editor.ui.registry.addButton('heading', {
+      //text: 'My Button',
+      tooltip: 'Heading',
+      icon: 'heading',
+      onAction: function (_) {
+        editor.insertContent('&nbsp;<strong>It\'s my button!</strong>&nbsp;');
+      }
+    });*/
 
     // Function for custom date button
     var toTimeHtml = function (date) {
@@ -201,29 +254,43 @@ tinymce.init({
     // ADD CUSTOM SHORCUTS -> https://www.tiny.cloud/docs/advanced/keyboard-shortcuts/
     // OVERRIDE SHORTCUTS -> https://stackoverflow.com/questions/19791696/overriding-shortcut-assignments-in-tinymce
 
-    // Add custom keyboard shorcut
-    editor.addShortcut('ctrl+n', 'New.', function () {
+    editor.addShortcut('ctrl+n', 'New', function () {
       editor.execCommand('mceNewDocument');
     });
 
-    // Add custom keyboard shorcut
-    editor.addShortcut('ctrl+o', 'Open.', function () {
+    editor.addShortcut('ctrl+o', 'Open', function () {
       ipcRenderer.send('call-load');
     });
 
-    // Add custom keyboard shorcut (ACTUALLY TINYMCE ALREADY HAS THIS ONE FOR SAVE)
-    editor.addShortcut('ctrl+s', 'Save.', function () {
+    editor.addShortcut('ctrl+s', 'Save', function () {
       ipcRenderer.send('call-save',tinymce.editors[0].getContent({format: 'raw'}));
     });
 
-    // Add custom keyboard shorcut
-    editor.addShortcut('shift+ctrl+s', 'Save as.', function () {
+    editor.addShortcut('shift+ctrl+s', 'Save as', function () {
       ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}));
     });
 
-    // Add custom keyboard shorcut
     editor.addShortcut('ctrl+w', 'Close.', function () {
       ipcRenderer.send('call-quit');
+    });
+
+    editor.addShortcut('ctrl+.', 'Superscript', function () {
+      tinyMCE.execCommand('Superscript');
+    });
+
+    // BREAKS PROGRAM RIGHT NOW SO COMMENTED OUT
+    /*editor.addShortcut('ctrl+,', 'Subscript', function () {
+      tinyMCE.execCommand('Subscript');
+    });*/
+
+    // NOT WORKING RIGHT NOW! (TINYMCE DOESN'T LIKE THE SHORTCUT...)
+    editor.addShortcut('ctrl+]', 'Blockquote', function () {
+      tinymce.activeEditor.execCommand('mceBlockQuote');
+    });
+
+    // NOT WORKING RIGHT NOW! (TINYMCE DOESN'T LIKE THE SHORTCUT...)
+    editor.addShortcut('ctrl+\\', 'Clear formatting', function () {
+      tinyMCE.execCommand('RemoveFormat');
     });
 
     // Handle individual keyboard keys
