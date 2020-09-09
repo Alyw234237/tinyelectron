@@ -236,8 +236,9 @@ tinymce.init({
       //image: 'http://p.yusukekamiyamane.com/icons/search/fugue/icons/calendar-blue.png',
       tooltip: 'Insert Current Date',
       onAction: function (_) {
-      var html = toTimeHtml(new Date());
-      editor.insertContent(html);                },
+        var html = toTimeHtml(new Date());
+        editor.insertContent(html);
+      },
       onSetup: function (buttonApi) {
         var editorEventCallback = function (eventApi) {
           buttonApi.setDisabled(eventApi.element.nodeName.toLowerCase() === 'time');
