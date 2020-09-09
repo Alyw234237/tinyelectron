@@ -8,8 +8,8 @@
     "Electron",
     "TinyMCE"
   ],
-  "author": "Aly W.",
-  "license": "",
+  "author": "Aly W. <alyw234237@github.com>",
+  "license": "MIT",
   "dependencies": {
     "js-beautify": "^1.10.2",
     "tinymce": "^5.4.2"
@@ -20,7 +20,28 @@
   },
   "build": {
     "appId": "TinyMCE - Electron",
-    "win": {},
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
     "asar": true
   },
   "scripts": {

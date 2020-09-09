@@ -16,20 +16,26 @@
       .mce-container-body.mce-stack-layout {display: flex; flex-flow: column;height: 100%;}
       .mce-stack-layout-item {flex: 0 0 auto;}
       .mce-edit-area {flex:1 1 auto;}
+
+      /* Not working */
+      /*img {
+        max-width: 100%;
+        height: auto;
+      }*/
     </style>
   </head>
   <body>
     <div id="editor" class="tinymce-full"></div>
-  </body>
   <script src='./index.js'></script>
   <!-- Load experimental markdown plugin -->
   <script src="non-npm/plugin-markdown.js"></script>
-  <link href="non-npm/plugin-markdown-contentstyles.css"></script>
+  <link href="non-npm/plugin-markdown-contentstyles.css" />
   <!-- ^ Taken from:
     https://www.tiny.cloud/labs/markdown/
     https://www.tiny.cloud/labs/markdown/tinymce-snapshot/tinymce.min.js
     https://www.tiny.cloud/labs/markdown/tinymce-snapshot/plugins/markdown/plugin.min.js *
     https://www.tiny.cloud/labs/markdown/tinymce-snapshot/plugins/markdown/css/contentstyles.css *
   -->
+  </body>
 </html>
 
