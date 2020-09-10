@@ -39,7 +39,7 @@ function createWindow() {
     },
     spellcheck: false
   });
-  if (isDev) {
+  if (!isDev) {
     mainWindow.setMenuBarVisibility(false);
   }
   // and load the index.html of the app.
@@ -89,7 +89,7 @@ function load() {
     }
     fs.readFile(file[0], 'utf8', (err, data) => {
       if (err) throw err;
-      change_working_directory(file[0]);
+      change_working_directory(path.dirname(file[0]));
       mainWindow.webContents.send('new-file', data);
     });
   });
@@ -101,23 +101,30 @@ function save(output) {
   } else {
     var fullpath = path.join(working_directory, filename);
     fs.writeFile(fullpath, beautify(output, { indent_size: 2 }), (err) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
     });
   }
 }
 
 function saveas(output) {
   var options = {
+    //title: 'Select the file path to save',
+    defaultPath: working_directory,
+    //buttonLabel: 'Save',
     filters: [
       { name: 'html', extensions: ['htm', 'html'] },
       { name: 'txt', extensions: ['txt'] },
       { name: 'md', extensions: ['md'] },
       { name: 'All Files', extensions: ['*'] }
     ],
-    defaultPath: working_directory
+    properties: []
   };
   dialog.showSaveDialog(options, function (file) {
-    if (!file) return;
+    if (file.canceled || !file) {
+      return;
+    }
     change_working_directory(path.dirname(file));
     filename = path.basename(file);
     save(output);
@@ -125,7 +132,7 @@ function saveas(output) {
 }
 
 function change_working_directory(new_path) {
-  working_directory = path.dirname(new_path);
+  working_directory = new_path;
   mainWindow.webContents.send('change-cwd', working_directory);
 }
 

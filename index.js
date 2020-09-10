@@ -127,6 +127,7 @@ tinymce.init({
     {start: '- ', cmd: 'InsertUnorderedList' },
     {start: '> ', cmd: 'mceBlockQuote'},
     {start: '`', end: '`', format: 'code'},
+    {start: '```', format: 'code'}, // NOT WORKING
     {start: '~~', end: '~~', format: 'strikethrough'},
     {start: '---', replacement: '—'},
     {start: '--', replacement: '–'},
@@ -305,11 +306,11 @@ tinymce.init({
     });
 
     editor.addShortcut('ctrl+s', 'Save', function () {
-      ipcRenderer.send('call-save',tinymce.editors[0].getContent({format: 'raw'}));
+      ipcRenderer.send('call-save', tinymce.editors[0].getContent({format: 'raw'}));
     });
 
     editor.addShortcut('shift+ctrl+s', 'Save as', function () {
-      ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}));
+      ipcRenderer.send('call-saveAs', tinymce.editors[0].getContent({format: 'raw'}));
     });
 
     editor.addShortcut('ctrl+w', 'Close.', function () {
