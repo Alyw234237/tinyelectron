@@ -4,6 +4,11 @@ A simple constrained-rich-text and markdown editor using [Electron](https://www.
 
 Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/tiny-electron) (originally by [bmaranville/el-tiny-editor](https://github.com/bmaranville/el-tiny-editor)).
 
+## Screenshot
+
+[![](screenshot.png)](screenshot.png?raw=true)
+
+
 ## Features
 
 * Open and save files as markdown (MD), plain text (TXT), or restricted rich-text (HTML).
@@ -13,11 +18,6 @@ Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/t
 * Partial support for live conversion of markdown into rich-text in rich-text editing mode. For example, typing `# Header title` will make an H1 header and typing `**This text is bold.**` will give bolded text. This feature does not currently work for links, tables, or images (use the formatting buttons, keyboard shorcuts, or markdown editing pane instead for these). Also includes live conversions for en (--) and em dashes (---).
 * Editing and formatting keyboard shortcuts in rich-text mode (e.g., ctrl+o = open, ctrl+v = paste, ctrl+b = bold, etc.).
 * Find and replace functionality in the rich-text view.
-
-## Screenshot
-<img src="screenshot.png" style="box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2), 10px 10px 10px 10px rgba(0, 0, 0, 0.19);">
-
-[![](screenshot.png)](screenshot.png?raw=true)
 
 ## Installation
 
