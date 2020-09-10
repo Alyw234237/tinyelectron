@@ -29,3 +29,9 @@ To build executables:
 
 To install as an application, run the appropriate executable (e.g., .exe, .deb) in the dist folder after building.
 
+# Related
+
+* [Typora](https://typora.io/)
+* [Mark Text](https://github.com/marktext/marktext)
+* [Zettlr](https://github.com/Zettlr/Zettlr)
+
