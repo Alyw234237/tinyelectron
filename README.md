@@ -44,6 +44,6 @@ Similar live/rich-text markdown editors:
 * [Uncolored](https://github.com/n457/Uncolored)
 * [Abricotine](http://abricotine.brrd.fr/)
 * [ghostwriter](https://wereturtle.github.io/ghostwriter/)
-* [VNote]()https://github.com/tamlok/vnote
+* [VNote](https://github.com/tamlok/vnote)
 * [UNOTES](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes) for [VSCode](https://github.com/microsoft/vscode)
 
