@@ -8,10 +8,10 @@ Features:
 
 * Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines are included. All other styling—including, e.g., font size, font color, spacing, alignment, etc.—is disabled and automatically removed.
 * Editing and formatting keyboard shortcuts (e.g., ctrl+v for paste, ctrl+b for bold, ctrl+k for links, etc.).
-* Partial support for while-typing conversion of basic markdown into rich-text. For example, typing "# header title" and enter will make an H1 header and typing "**This text is bold.**" and pressing space will bold the text.
-* Panes to view and edit the document as HTML code or markdown.
-* Find and replace functionality.
-* Saves as HTML or plain text but future support for opening and saving as markdown planned.
+* Partial support for live conversion of basic markdown into rich-text. For example, typing "# header title" and enter will make an H1 header and typing "**This text is bold.**" and pressing space will bold the text. Does not work with links, tables, or images.
+* Panes to view and edit the document as HTML code or markdown. Bidirectional live editing between rich-text and markdown panes.
+* Find and replace functionality in the rich-text pane.
+* Open and save files as markdown, plain text, or HTML.
 
 Here is a screenshot of the editor:
 
