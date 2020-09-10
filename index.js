@@ -203,42 +203,48 @@ tinymce.init({
         var items = [
           {
             type: 'menuitem',
-            text: 'H1 (Ctrl+Alt+1)',
+            text: 'H1',
+            tooltip: 'H1 (Ctrl+Alt+1)', // Doesn't work
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h1');
             }
           },
           {
             type: 'menuitem',
-            text: 'H2 (Ctrl+Alt+2)',
+            text: 'H2',
+            tooltip: 'H2 (Ctrl+Alt+2)', // Doesn't work
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h2');
             }
           },
           {
             type: 'menuitem',
-            text: 'H3 (Ctrl+Alt+3)',
+            text: 'H3',
+            tooltip: 'H3 (Ctrl+Alt+3)', // Doesn't work
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h3');
             }
           },
           {
             type: 'menuitem',
-            text: 'H4 (Ctrl+Alt+4)',
+            text: 'H4',
+            tooltip: 'H4 (Ctrl+Alt+4)', // Doesn't work
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h4');
             }
           },
           {
             type: 'menuitem',
-            text: 'H5 (Ctrl+Alt+5)',
+            text: 'H5',
+            tooltip: 'H5 (Ctrl+Alt+5)', // Doesn't work
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h5');
             }
           },
           {
             type: 'menuitem',
-            text: 'H6 Ctrl+Alt+6',
+            text: 'H6',
+            tooltip: 'H6 (Ctrl+Alt+6)', // Doesn't work
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h6');
             }

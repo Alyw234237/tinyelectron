@@ -28,7 +28,6 @@ tinymce.addI18n('tooltips',{
 "Link...": "Link... (Ctrl+K)",
 "Paste as text": "Paste as text (Shift+Ctrl+V)",
 "Print...": "Print... (Ctrl+P)",
-"Save": "Save (Ctrl+S)",
 "Preferences": "Preferences",
 "Special character": "Special character",
 "Code sample": "Code sample",

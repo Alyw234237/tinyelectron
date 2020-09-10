@@ -16680,7 +16680,7 @@
         }
       });
       editor.ui.registry.addSidebar("markdown", {
-        tooltip: "Markdown (Ctrl + m)",
+        tooltip: "Markdown (Ctrl + M)",
         icon: "markdown",
         onSetup: function(api) {
           var sidebar = Sidebar(editor, converter, node_Element.fromDom(api.element()));
