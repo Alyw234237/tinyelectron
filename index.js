@@ -81,7 +81,7 @@ tinymce.init({
   //content_css: 'document',
   content_css: 'tinymce-custom.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
-  toolbar: 'newdocument undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr markdown searchreplace code',
+  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr removeformat | searchreplace markdown code',
   toolbar_mode: 'floating', // NOT WORKING!
   plugins: 'code link image table markdown lists paste save searchreplace autolink charmap hr toc textpattern charmap emoticons menusave',
   contextmenu_never_use_native: true,
@@ -150,6 +150,45 @@ tinymce.init({
   // https://www.tiny.cloud/docs/demo/custom-toolbar-button/
   setup: function (editor) {
     var toggleState = false;
+
+    editor.ui.registry.addMenuButton('file', {
+      tooltip: 'File',
+      icon: 'new-document',
+      fetch: function (callback) {
+        var items = [
+          {
+            type: 'menuitem',
+            icon: 'new-document',
+            text: 'New',
+            onAction: function () {
+              editor.execCommand('mceNewDocument');
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'Open',
+            onAction: function () {
+              ipcRenderer.send('call-load');
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'Save',
+            onAction: function () {
+              ipcRenderer.send('call-save',tinymce.editors[0].getContent({format: 'raw'}));
+            }
+          },
+          {
+            type: 'menuitem',
+            text: 'Save as',
+            onAction: function () {
+              ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}));
+            }
+          }
+        ];
+        callback(items);
+      }
+    });
 
     editor.ui.registry.addMenuButton('heading', {
       tooltip: 'Heading',
@@ -274,6 +313,13 @@ tinymce.init({
     editor.addShortcut('ctrl+w', 'Close.', function () {
       ipcRenderer.send('call-quit');
     });
+
+    // content var is required... find out how to grab clipboard contents... THEN TEST
+    /*editor.addShortcut('shift+ctrl+v', 'Paste without formatting', function () {
+      tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
+      tinyMCE.execCommand('mceInsertClipboardContent', false, { content: '<p>Hello, World!</p>'});
+      tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
+    });*/
 
     editor.addShortcut('ctrl+.', 'Superscript', function () {
       tinyMCE.execCommand('Superscript');
