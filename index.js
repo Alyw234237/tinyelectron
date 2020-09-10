@@ -82,7 +82,6 @@ tinymce.init({
   selector: 'div.tinymce-full',
   height: "100%",
   theme: 'silver',
-  //content_css: 'document',
   content_css: 'editor-area-styles.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
   toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace code markdown preferences',
@@ -94,16 +93,6 @@ tinymce.init({
   elementpath: false,
   branding: false,
   menubar: false,
-  //menubar: 'file edit insert format table tools', // 'false' to disable
-  /* Note: codeformat and blockquote icons vs. menu items kind of messed up */
-  /*menu: {
-    file: { title: 'File', items: 'newdocument restoredraft menuload menusave menusaveas | menuquit' },
-    edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
-    insert: { title: 'Insert', items: 'image link inserttable | charmap emoticons hr | toc ' },
-    format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript | codeformat blockquote | formats | removeformat' },
-    table: { title: 'Table', items: 'inserttable | row column cell | deletetable' },
-    tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | code wordcount' },
-  },*/
   paste_auto_cleanup_on_paste: true,
   paste_remove_styles: true,
   paste_remove_styles_if_webkit: true,
@@ -127,8 +116,8 @@ tinymce.init({
     {start: '_', end: '_', format: 'italic'},
     {start: '**', end: '**', format: 'bold'},
     {start: '__', end: '__', format: 'bold'},
-    {start: '***', end: '***', format: 'bold+italic'},
-    {start: '___', end: '___', format: 'bold+italic'},
+    {start: '***', end: '***', format: 'bold+italic'}, // Custom
+    {start: '___', end: '___', format: 'bold+italic'}, // Custom
     {start: '~~', end: '~~', format: 'strikethrough'},
     {start: '^', end: '^', format: 'superscript'}, // Custom
     {start: '1. ', cmd: 'InsertOrderedList'},
