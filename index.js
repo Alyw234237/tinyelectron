@@ -341,6 +341,10 @@ tinymce.init({
       tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
     });*/
 
+    editor.addShortcut('alt+shift+5', 'Strikethrough', function () {
+      tinyMCE.execCommand('Strikethrough');
+    });
+
     editor.addShortcut('ctrl+.', 'Superscript', function () {
       tinyMCE.execCommand('Superscript');
     });

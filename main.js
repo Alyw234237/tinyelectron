@@ -90,7 +90,8 @@ function load() {
     fs.readFile(file[0], 'utf8', (err, data) => {
       if (err) throw err;
       change_working_directory(path.dirname(file[0]));
-      mainWindow.webContents.send('new-file', path.extname(file[0]), data);
+      filename = path.basename(file[0]);
+      mainWindow.webContents.send('new-file', path.extname(filename), data);
     });
   });
 }
