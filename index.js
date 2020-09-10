@@ -326,7 +326,11 @@ tinymce.init({
       ipcRenderer.send('call-saveAs', editorContent);
     });
 
-    editor.addShortcut('ctrl+w', 'Close.', function () {
+    editor.addShortcut('ctrl+m', 'Markdown', function () {
+      // Open markdown pane (TO-DO)
+    });
+
+    editor.addShortcut('ctrl+w', 'Close', function () {
       ipcRenderer.send('call-quit');
     });
 

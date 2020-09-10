@@ -3562,7 +3562,9 @@
           if (type === "ol") {
             bullet = listNum.toString() + ". ";
           } else {
-            bullet = "- ";
+            // Use "* " instead of "- " for lists
+            //bullet = "- ";
+            bullet = "* ";
           }
           txt += bullet + showdown.subParser("makeMarkdown.listItem")(listItems[i], globals);
           ++listNum;
@@ -3787,15 +3789,17 @@
             tableArray[r].push(cellContent);
           }
         }
-        var cellSpacesCount = 3;
-        for (i = 0; i < tableArray.length; ++i) {
+        // Disable table cell padding with spaces and dashes
+        //var cellSpacesCount = 3;
+        var cellSpacesCount = 0;
+        /*for (i = 0; i < tableArray.length; ++i) {
           for (ii = 0; ii < tableArray[i].length; ++ii) {
             var strLen = tableArray[i][ii].length;
             if (strLen > cellSpacesCount) {
               cellSpacesCount = strLen;
             }
           }
-        }
+        }*/
         for (i = 0; i < tableArray.length; ++i) {
           for (ii = 0; ii < tableArray[i].length; ++ii) {
             if (i === 1) {
@@ -3959,7 +3963,9 @@
                   if (typeof listItems[i].tagName === "undefined" || listItems[i].tagName.toLowerCase() !== "li") {
                     continue;
                   }
-                  var bullet = type === "ol" ? listNum.toString() + ". " : "- ";
+                  // Use "* " instead of "- " for lists
+                  //var bullet = type === "ol" ? listNum.toString() + ". " : "- ";
+                  var bullet = type === "ol" ? listNum.toString() + ". " : "* ";
                   txt += bullet + sdown.subParser("makeMarkdown.listItem")(listItems[i], globals);
                   ++listNum;
                 }
@@ -5705,7 +5711,9 @@
     var MarkdownListType;
     (function(MarkdownListType) {
       MarkdownListType["Numeric"] = "1. ";
-      MarkdownListType["Bullet"] = "- ";
+      // Use "* " instead of "- " for lists
+      //MarkdownListType["Bullet"] = "- ";
+      MarkdownListType["Bullet"] = "* ";
     })(MarkdownListType || (MarkdownListType = {}));
     var ViewMode;
     (function(ViewMode) {
