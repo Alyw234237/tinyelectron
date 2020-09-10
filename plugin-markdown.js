@@ -267,7 +267,7 @@
         parsers = {},
         extensions = {},
         globalOptions = getDefaultOpts(true),
-        setFlavor = "vanilla",
+        setFlavor = "github",
         flavor = {
           github: {
             omitExtraWLInCodeBlocks: true,
@@ -15659,12 +15659,13 @@
           inputStyles: {
             "flex-grow": "1",
             padding: "5px",
+            "font-size": "14px",
             "font-family": "monospace",
             "white-space": "pre-wrap",
             "box-sizing": "border-box",
             "min-width": "100%",
             "max-width": "100%",
-            width: "450px",
+            width: "63vh",
             resize: "none"
           },
           selectOnFocus: false,
@@ -15810,7 +15811,9 @@
           styles: {
             "background-color": "#eee",
             color: "#333",
-            display: "flex",
+            // Remove hints footer
+            //display: "flex",
+            display: "none",
             "flex-direction": "row",
             "justify-content": "space-between"
           }
@@ -15927,7 +15930,9 @@
                 "background-color": "#eee",
                 color: "#333",
                 padding: "5px",
-                display: "flex",
+                // Remove top header
+                //display: "flex"
+                display: "none",
                 "flex-direction": "row",
                 "justify-content": "space-between"
               }
