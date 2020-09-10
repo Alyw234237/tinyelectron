@@ -148,7 +148,7 @@ tinymce.init({
   'img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]',
 
   // Save button callback function (JUST TO PREVENT THAT ERROR UPON CTRL+S)
-  save_onsavecallback: function () { console.log('Saved'); },
+  save_onsavecallback: function () { },
 
   // https://www.tiny.cloud/docs/demo/custom-toolbar-button/
   setup: function (editor) {

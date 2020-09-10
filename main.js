@@ -33,7 +33,6 @@ function createWindow() {
   // Find screen height so we can resize to 88% of screen height-wise
   let {width, height} = require('electron').screen.getPrimaryDisplay().size
   height = Math.round(height * 0.88);
-  console.log(height);
   mainWindow = new BrowserWindow({
     width: 800,
     height: height,
