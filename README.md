@@ -2,7 +2,7 @@
 
 A simple and fast restricted rich-text and markdown editor using [Electron](https://www.electronjs.org/), [TinyMCE 5](https://github.com/tinymce/tinymce), and [Showdown](https://github.com/showdownjs/showdown) (via a modified [TinyMCE labs plugin](https://www.tiny.cloud/labs/markdown/)). Runs on Windows, macOS, Linux, and Chrome OS (via Crostini).
 
-Forked from [Moliman/tiny-electron](https://github.com/Moliman/tiny-electron) (original was [bmaranville/el-tiny-editor](https://github.com/bmaranville/el-tiny-editor)).
+Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/tiny-electron) (original was [bmaranville/el-tiny-editor](https://github.com/bmaranville/el-tiny-editor)).
 
 Features:
 
