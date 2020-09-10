@@ -48,7 +48,7 @@ tinymce.IconManager.add('custom', {
     newdoc: `<svg width="24" height="24"><path fill-rule="nonzero" d="M7 4a1 1 0 00-1 1v14c0 .6.4 1 1 1h10c.6 0 1-.4 1-1V9l-5-5H7zm6 5V5l4 4h-4z"></path></svg>`,
     undo: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M12.5 8c-2.7 0-5 1-6.9 2.6L2 7v9h9l-3.6-3.6A8 8 0 0120 16l2.4-.8a10.5 10.5 0 00-10-7.2z"></path></svg>`,
     redo: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M18.4 10.6a10.5 10.5 0 00-16.9 4.6L4 16a8 8 0 0112.7-3.6L13 16h9V7l-3.6 3.6z"></path></svg>`,
-    heading: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><polygon points="6.57 3 6.57 5.57 10.73 5.57 10.73 17 13.82 17 13.82 5.57 18 5.57 18 3 6.57 3"></polygon><polygon points="2 9.65 4.68 9.65 4.68 17 6.66 17 6.66 9.65 9.35 9.65 9.35 8 2 8 2 9.65"></polygon></svg>`,
+    heading: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="20"><polygon points="6.57 3 6.57 5.57 10.73 5.57 10.73 17 13.82 17 13.82 5.57 18 5.57 18 3 6.57 3"></polygon><polygon points="2 9.65 4.68 9.65 4.68 17 6.66 17 6.66 9.65 9.35 9.65 9.35 8 2 8 2 9.65"></polygon></svg>`,
     bold: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M14.6 11.8c.9-.6 1.4-1.4 1.4-2.3 0-2-1.6-3.5-3.5-3.5H7v12h6.3c1.7 0 3.2-1.5 3.2-3.3 0-1.3-.8-2.4-1.9-2.9zM9.5 8h2.8a1.5 1.5 0 110 3H9.4V8zm3.3 8H9.4v-3h3.3a1.5 1.5 0 110 3z"></path></svg>`,
     italic: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M10 6v2h2.6l-3.7 8H6v2h8v-2h-2.6l3.7-8H18V6z"></path></svg>`,
     underline: `<?xml version="1.0" encoding="UTF-8"?><svg width="24" height="24"><path fill-rule="nonzero" d="M12 16a5 5 0 005-5V4h-2.5v7a2.5 2.5 0 01-5 0V4H7v7a5 5 0 005 5zm-6 2v2h12v-2H6z"></path></svg>`,
@@ -81,7 +81,7 @@ tinymce.init({
   //content_css: 'document',
   content_css: 'tinymce-custom.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
-  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr removeformat | searchreplace markdown code',
+  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace code markdown preferences',
   toolbar_mode: 'floating', // NOT WORKING!
   plugins: 'code link image table markdown lists paste save searchreplace autolink charmap hr toc textpattern charmap emoticons menusave',
   contextmenu_never_use_native: true,
@@ -109,6 +109,7 @@ tinymce.init({
   link_context_toolbar: true,
   link_title: false,
   link_quicklink: true,
+  target_list: false,
   table_appearance_options: false,
   image_dimensions: false,
   textpattern_patterns: [
@@ -153,7 +154,8 @@ tinymce.init({
 
     editor.ui.registry.addMenuButton('file', {
       tooltip: 'File',
-      icon: 'new-document',
+      //icon: 'home',
+      icon: 'edit-block',
       fetch: function (callback) {
         var items = [
           {
@@ -166,6 +168,7 @@ tinymce.init({
           },
           {
             type: 'menuitem',
+            icon: 'browse',
             text: 'Open',
             onAction: function () {
               ipcRenderer.send('call-load');
@@ -173,6 +176,7 @@ tinymce.init({
           },
           {
             type: 'menuitem',
+            icon: 'save',
             text: 'Save',
             onAction: function () {
               ipcRenderer.send('call-save',tinymce.editors[0].getContent({format: 'raw'}));
@@ -180,6 +184,7 @@ tinymce.init({
           },
           {
             type: 'menuitem',
+            icon: 'save',
             text: 'Save as',
             onAction: function () {
               ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}));
@@ -242,14 +247,11 @@ tinymce.init({
       }
     });
 
-    // Add custom insert button
-    editor.ui.registry.addButton('customInsertButton', {
-      //text: 'My Button',
-      //image: 'http://p.yusukekamiyamane.com/icons/search/fugue/icons/calendar-blue.png',
-      tooltip: 'Insert Custom String',
-      icon: 'insert-string',
+    editor.ui.registry.addButton('preferences', {
+      tooltip: 'Preferences',
+      icon: 'preferences',
       onAction: function (_) {
-        editor.insertContent('&nbsp;<strong>It\'s my button!</strong>&nbsp;');
+        // editor.insertContent('&nbsp;<strong>It\'s my button!</strong>&nbsp;');
       }
     });
 
