@@ -80,13 +80,16 @@ tinymce.IconManager.add('custom', {
 
 tinymce.init({
   selector: 'div.tinymce-full',
+  //language: 'tooltips', // Use translations to make custom tooltips for buttons
+  //language_url: 'tooltips.js',
   height: "100%",
   theme: 'silver',
   content_css: 'editor-area-styles.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
   toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace markdown code', // preferences (ADD BACK LATER)
   toolbar_mode: 'floating', // NOT WORKING!
-  plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern menusave',
+  plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern menusave print',
+  // ^ Note: Print seems to break the editor (buttons/menus and shortcuts) by giving focus to the OS somehow
   contextmenu_never_use_native: true,
   contextmenu: 'cut copy paste selectall',
   icons: 'custom',
@@ -159,7 +162,7 @@ tinymce.init({
           {
             type: 'menuitem',
             icon: 'new-document',
-            text: 'New (Ctrl + n)',
+            text: 'New (Ctrl+N)',
             onAction: function () {
               editor.execCommand('mceNewDocument');
             }
@@ -167,7 +170,7 @@ tinymce.init({
           {
             type: 'menuitem',
             icon: 'browse',
-            text: 'Open (Ctrl + o)',
+            text: 'Open (Ctrl+O)',
             onAction: function () {
               ipcRenderer.send('call-load');
             }
@@ -175,7 +178,7 @@ tinymce.init({
           {
             type: 'menuitem',
             icon: 'save',
-            text: 'Save (Ctrl + s)',
+            text: 'Save (Ctrl+S)',
             onAction: function () {
               ipcRenderer.send('call-save',tinymce.editors[0].getContent({format: 'raw'}));
             }
@@ -183,7 +186,7 @@ tinymce.init({
           {
             type: 'menuitem',
             icon: 'save',
-            text: 'Save as (Shift + Ctrl + s)',
+            text: 'Save as (Shift+Ctrl+S)',
             onAction: function () {
               ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}));
             }
@@ -253,16 +256,6 @@ tinymce.init({
       }
     });
 
-    // Add custom insert button
-    /*editor.ui.registry.addButton('heading', {
-      //text: 'My Button',
-      tooltip: 'Heading',
-      icon: 'heading',
-      onAction: function (_) {
-        editor.insertContent('&nbsp;<strong>It\'s my button!</strong>&nbsp;');
-      }
-    });*/
-
     // Function for custom date button
     var toTimeHtml = function (date) {
       return '<time datetime="' + date.toString() + '">' + date.toDateString() + '</time>';
@@ -294,15 +287,15 @@ tinymce.init({
     // ADD CUSTOM SHORCUTS -> https://www.tiny.cloud/docs/advanced/keyboard-shortcuts/
     // OVERRIDE SHORTCUTS -> https://stackoverflow.com/questions/19791696/overriding-shortcut-assignments-in-tinymce
 
-    editor.addShortcut('ctrl+n', 'New', function () {
+    editor.addShortcut('Ctrl+N', 'New', function () {
       editor.execCommand('mceNewDocument');
     });
 
-    editor.addShortcut('ctrl+o', 'Open', function () {
+    editor.addShortcut('Ctrl+O', 'Open', function () {
       ipcRenderer.send('call-load');
     });
 
-    editor.addShortcut('ctrl+s', 'Save', function () {
+    editor.addShortcut('Ctrl+S', 'Save', function () {
       // Get editor content in all formats and send to save
       var editorContent = {
         html: tinymce.editors[0].getContent({format: 'html'}),
@@ -312,7 +305,7 @@ tinymce.init({
       ipcRenderer.send('call-save', editorContent);
     });
 
-    editor.addShortcut('shift+ctrl+s', 'Save as', function () {
+    editor.addShortcut('Shift+Ctrl+S', 'Save as', function () {
       // Get editor content in all formats and send to save
       var editorContent = {
         html: tinymce.editors[0].getContent({format: 'html'}),
@@ -322,42 +315,75 @@ tinymce.init({
       ipcRenderer.send('call-saveAs', editorContent);
     });
 
-    editor.addShortcut('ctrl+m', 'Markdown', function () {
-      tinymce.activeEditor.execCommand('togglesidebar', false, 'markdown');
-      // Open markdown pane (TO-DO)
+    editor.addShortcut('Ctrl+H', 'Find and replace', function () {
+      tinymce.activeEditor.execCommand('SearchReplace');
     });
 
-    editor.addShortcut('ctrl+w', 'Close', function () {
+    editor.addShortcut('Ctrl+M', 'Markdown', function () {
+      tinymce.activeEditor.execCommand('togglesidebar', false, 'markdown');
+      // ^ -> https://stackoverflow.com/questions/46825012/how-to-open-close-sidebar-in-tinymce
+    });
+
+    editor.addShortcut('Ctrl+W', 'Close', function () {
       ipcRenderer.send('call-quit');
     });
 
-    // content var is required... find out how to grab clipboard contents... THEN TEST
-    /*editor.addShortcut('shift+ctrl+v', 'Paste without formatting', function () {
-      tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
-      tinyMCE.execCommand('mceInsertClipboardContent', false, { content: '<p>Hello, World!</p>'});
-      tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
-    });*/
+    editor.addShortcut('Shift+Ctrl+Z', 'Redo', function () {
+      tinyMCE.execCommand('Redo');
+    });
 
-    editor.addShortcut('alt+shift+5', 'Strikethrough', function () {
+    // content var is required... find out how to grab clipboard contents... THEN TEST
+    editor.addShortcut('Shift+Ctrl+V', 'Paste without formatting', function () {
+      //tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
+      //tinyMCE.execCommand('mceInsertClipboardContent', false, { content: '<p>Hello, World!</p>'});
+      //tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
+    });
+
+    editor.addShortcut('Ctrl+Alt+1', 'Heading 1', function () {
+      tinyMCE.execCommand('mceToggleFormat', false, 'h1');
+    });
+
+    editor.addShortcut('Ctrl+Alt+2', 'Heading 2', function () {
+      tinyMCE.execCommand('mceToggleFormat', false, 'h2');
+    });
+
+    editor.addShortcut('Ctrl+Alt+3', 'Heading 3', function () {
+      tinyMCE.execCommand('mceToggleFormat', false, 'h3');
+    });
+
+    editor.addShortcut('Ctrl+Alt+4', 'Heading 4', function () {
+      tinyMCE.execCommand('mceToggleFormat', false, 'h4');
+    });
+
+    editor.addShortcut('Ctrl+Alt+5', 'Heading 5', function () {
+      tinyMCE.execCommand('mceToggleFormat', false, 'h5');
+    });
+
+    editor.addShortcut('Ctrl+Alt+6', 'Heading 6', function () {
+      tinyMCE.execCommand('mceToggleFormat', false, 'h6');
+    });
+
+    editor.addShortcut('Alt+Shift+5', 'Strikethrough', function () {
       tinyMCE.execCommand('Strikethrough');
     });
 
-    editor.addShortcut('ctrl+.', 'Superscript', function () {
+    // NOT WORKING RIGHT NOW! (TINYMCE DOESN'T LIKE THE SHORTCUT...)
+    editor.addShortcut('Ctrl+.', 'Superscript', function () {
       tinyMCE.execCommand('Superscript');
     });
 
     // BREAKS PROGRAM RIGHT NOW SO COMMENTED OUT
-    /*editor.addShortcut('ctrl+,', 'Subscript', function () {
+    /*editor.addShortcut('Ctrl+,', 'Subscript', function () {
       tinyMCE.execCommand('Subscript');
     });*/
 
     // NOT WORKING RIGHT NOW! (TINYMCE DOESN'T LIKE THE SHORTCUT...)
-    editor.addShortcut('ctrl+]', 'Blockquote', function () {
+    editor.addShortcut('Ctrl+]', 'Blockquote', function () {
       tinymce.activeEditor.execCommand('mceBlockQuote');
     });
 
     // NOT WORKING RIGHT NOW! (TINYMCE DOESN'T LIKE THE SHORTCUT...)
-    editor.addShortcut('ctrl+\\', 'Clear formatting', function () {
+    editor.addShortcut('Ctrl+\\', 'Clear formatting', function () {
       tinyMCE.execCommand('RemoveFormat');
     });
 

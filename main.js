@@ -30,9 +30,13 @@ let mainWindow;
 Menu.setApplicationMenu(Menu.buildFromTemplate(template));*/
 
 function createWindow() {
+  // Find screen height so we can resize to 88% of screen height-wise
+  let {width, height} = require('electron').screen.getPrimaryDisplay().size
+  height = Math.round(height * 0.88);
+  console.log(height);
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 650,
+    height: height,
     //frame: false,
     webPreferences: {
       nodeIntegration: true,
