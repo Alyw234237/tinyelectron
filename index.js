@@ -1,25 +1,6 @@
 const {ipcRenderer} = require('electron')
 const tinymce = require('tinymce/tinymce');
 
-tinymce.PluginManager.add('menusave', function(editor, url) {
-    editor.ui.registry.addMenuItem('menuload', {
-        text: 'Open',
-        onAction: () => ipcRenderer.send('call-load')
-    });
-    editor.ui.registry.addMenuItem('menusave', {
-        text: 'Save',
-        onAction: () => ipcRenderer.send('call-save', tinymce.editors[0].getContent({format: 'raw'}))
-    });
-    editor.ui.registry.addMenuItem('menusaveas', {
-        text: 'Save as',
-        onAction: () => ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}))
-    });
-    editor.ui.registry.addMenuItem('menuquit', {
-        text: 'Quit',
-        onAction: () => ipcRenderer.send('call-quit')
-    });
-});
-
 // Open new file
 ipcRenderer.on('new-file', function (event, extension, data) {
   // Open as HTML
@@ -88,7 +69,7 @@ tinymce.init({
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
   toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace markdown code', // preferences (ADD BACK LATER)
   toolbar_mode: 'floating', // NOT WORKING!
-  plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern menusave print',
+  plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern print',
   // ^ Note: Print seems to break the editor (buttons/menus and shortcuts) by giving focus to the OS somehow
   contextmenu_never_use_native: true,
   contextmenu: 'cut copy paste selectall',
@@ -347,9 +328,9 @@ tinymce.init({
 
     // content var is required... find out how to grab clipboard contents... THEN TEST
     editor.addShortcut('Shift+Ctrl+V', 'Paste without formatting', function () {
-      //tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
-      //tinyMCE.execCommand('mceInsertClipboardContent', false, { content: '<p>Hello, World!</p>'});
-      //tinyMCE.execCommand.execCommand('mceTogglePlainTextPaste');
+      navigator.clipboard.readText().then(text => {
+        tinyMCE.execCommand('mceInsertClipboardContent', false, { content: text});
+      });
     });
 
     editor.addShortcut('Ctrl+Alt+1', 'Heading 1', function () {
@@ -390,9 +371,17 @@ tinymce.init({
       tinyMCE.execCommand('Subscript');
     });*/
 
+    editor.addShortcut('Ctrl+Shift+7', 'Numbered list', function () {
+      tinyMCE.execCommand('InsertOrderedList');
+    });
+
+    editor.addShortcut('Ctrl+Shift+8', 'Bullet list', function () {
+      tinyMCE.execCommand('InsertUnorderedList');
+    });
+
     // NOT WORKING RIGHT NOW! (TINYMCE DOESN'T LIKE THE SHORTCUT...)
     editor.addShortcut('Ctrl+]', 'Blockquote', function () {
-      tinymce.activeEditor.execCommand('mceBlockQuote');
+      tinymce.execCommand('mceBlockQuote');
     });
 
     // NOT WORKING RIGHT NOW! (TINYMCE DOESN'T LIKE THE SHORTCUT...)
