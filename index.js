@@ -83,7 +83,7 @@ tinymce.init({
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
   toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace code markdown preferences',
   toolbar_mode: 'floating', // NOT WORKING!
-  plugins: 'code link image table markdown lists paste save searchreplace autolink charmap hr toc textpattern charmap emoticons menusave',
+  plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern menusave',
   contextmenu_never_use_native: true,
   contextmenu: 'cut copy paste selectall',
   icons: 'custom',
@@ -92,14 +92,14 @@ tinymce.init({
   menubar: false,
   //menubar: 'file edit insert format table tools', // 'false' to disable
   /* Note: codeformat and blockquote icons vs. menu items kind of messed up */
-  menu: {
+  /*menu: {
     file: { title: 'File', items: 'newdocument restoredraft menuload menusave menusaveas | menuquit' },
     edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
     insert: { title: 'Insert', items: 'image link inserttable | charmap emoticons hr | toc ' },
     format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript | codeformat blockquote | formats | removeformat' },
     table: { title: 'Table', items: 'inserttable | row column cell | deletetable' },
     tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | code wordcount' },
-  },
+  },*/
   paste_auto_cleanup_on_paste: true,
   paste_remove_styles: true,
   paste_remove_styles_if_webkit: true,

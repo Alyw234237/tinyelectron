@@ -1,8 +1,16 @@
 # tinyelectron
 
-A custom rich-text editor forked from [Moliman/tiny-electron](https://github.com/Moliman/tiny-electron) (originally by [bmaranville/el-tiny-editor](https://github.com/bmaranville/el-tiny-editor)). Uses [Electron](https://www.electronjs.org/) and [TinyMCE 5](https://github.com/tinymce/tinymce).
+A custom rich-text editor forked from [Moliman/tiny-electron](https://github.com/Moliman/tiny-electron) (originally by [bmaranville/el-tiny-editor](https://github.com/bmaranville/el-tiny-editor)). Uses [Electron](https://www.electronjs.org/) and [TinyMCE 5](https://github.com/tinymce/tinymce). Runs on all major desktop operating systems: Windows, macOS, Linux, and Chrome OS (via Crostini).
 
-Here is a screenshot:
+Features:
+
+* Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines. All styes—including e.g. font size and color—are removed.
+* Editing and formatting keyboard shortcuts (e.g., ctrl+v for paste, ctrl+b for bold, ctrl+k for links, etc.).
+* Partial support for live conversion of markdown into rich-text (e.g., typing "# header title" and new line will make an H1 header).
+* Panes to view and edit the rich text as HTML code or markdown.
+* Find and replace.
+
+Here is a screenshot of the editor:
 
 [![](screenshot.png)](screenshot.png?raw=true)
 
