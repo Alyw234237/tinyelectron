@@ -100,6 +100,20 @@ function save(output) {
     saveas(output);
   } else {
     var fullpath = path.join(working_directory, filename);
+    // Save as text
+    if(path.extname(filename) == ".txt" || path.extname(filename) == ".text") {
+      output = output.text;
+      console.log("Hello world! ->");
+      console.log(output);
+    // Save as markdown
+    } else if(path.extname(filename) == ".md" || path.extname(filename) == ".markdown") {
+      output = output.markdown;
+      console.log("Hello world! ->");
+      console.log(output);
+    // Save as HTML (HTML or other extension)
+    } else {
+      output = output.html;
+    }
     fs.writeFile(fullpath, beautify(output, { indent_size: 2 }), (err) => {
       if (err) {
         throw err;
@@ -114,10 +128,10 @@ function saveas(output) {
     defaultPath: working_directory,
     //buttonLabel: 'Save',
     filters: [
-      { name: 'html', extensions: ['htm', 'html'] },
-      { name: 'txt', extensions: ['txt'] },
+      { name: 'All Files', extensions: ['*'] },
       { name: 'md', extensions: ['md'] },
-      { name: 'All Files', extensions: ['*'] }
+      { name: 'html', extensions: ['htm', 'html'] },
+      { name: 'txt', extensions: ['txt'] }
     ],
     properties: []
   };
