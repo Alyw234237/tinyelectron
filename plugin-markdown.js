@@ -3513,7 +3513,9 @@
         var txt = "";
         if (node.hasAttribute("src")) {
           txt += "![" + node.getAttribute("alt") + "](";
-          txt += "<" + node.getAttribute("src") + ">";
+          // Remove '<' and '>' from image links/URLs
+          //txt += "<" + node.getAttribute("src") + ">";
+          txt += node.getAttribute("src");
           if (node.hasAttribute("width") && node.hasAttribute("height")) {
             txt += " =" + node.getAttribute("width") + "x" + node.getAttribute("height");
           }
