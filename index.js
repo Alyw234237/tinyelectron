@@ -72,7 +72,7 @@ tinymce.init({
   plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern print',
   // ^ Note: Print seems to break the editor (buttons/menus and shortcuts) by giving focus to the OS somehow
   contextmenu_never_use_native: true,
-  contextmenu: 'cut copy paste selectall',
+  contextmenu: 'undo redo | cut copy paste pasteastext selectall',
   icons: 'custom',
   elementpath: false,
   branding: false,
@@ -278,6 +278,24 @@ tinymce.init({
       }
     });
 
+    // ADD CUSTOM CONTEXT MENU ITEMS ->
+
+    editor.ui.registry.addMenuItem('pasteastext', {
+      icon: 'paste-text',
+      text: 'Paste as text',
+      onAction: function () {
+        navigator.clipboard.readText().then(text => {
+          tinyMCE.execCommand('mceInsertClipboardContent', false, { content: text});
+        });
+      }
+    });
+
+    editor.ui.registry.addContextMenu('pasteastext', {
+      update: function (element) {
+        return 'pasteastext';
+      }
+    });
+
     // ADD CUSTOM SHORCUTS -> https://www.tiny.cloud/docs/advanced/keyboard-shortcuts/
     // OVERRIDE SHORTCUTS -> https://stackoverflow.com/questions/19791696/overriding-shortcut-assignments-in-tinymce
 
@@ -326,8 +344,7 @@ tinymce.init({
       tinyMCE.execCommand('Redo');
     });
 
-    // content var is required... find out how to grab clipboard contents... THEN TEST
-    editor.addShortcut('Shift+Ctrl+V', 'Paste without formatting', function () {
+    editor.addShortcut('Shift+Ctrl+V', 'Paste text', function () {
       navigator.clipboard.readText().then(text => {
         tinyMCE.execCommand('mceInsertClipboardContent', false, { content: text});
       });

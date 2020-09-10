@@ -15681,7 +15681,7 @@
             "box-sizing": "border-box",
             "min-width": "100%",
             "max-width": "100%",
-            width: "63vh",
+            width: "54vh",
             resize: "none"
           },
           selectOnFocus: false,
