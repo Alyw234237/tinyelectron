@@ -4,10 +4,10 @@ A custom rich-text editor forked from [Moliman/tiny-electron](https://github.com
 
 Features:
 
-* Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines. All styes—including e.g. font size and color—are removed.
+* Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines are supported. All other styling—including e.g. font size and color—are automatically removed.
 * Editing and formatting keyboard shortcuts (e.g., ctrl+v for paste, ctrl+b for bold, ctrl+k for links, etc.).
-* Partial support for live conversion of markdown into rich-text (e.g., typing "# header title" and new line will make an H1 header).
-* Panes to view and edit the rich text as HTML code or markdown.
+* Partial support for while-typing conversion of markdown into rich-text (e.g., typing "# header title" and new line will make an H1 header).
+* Panes to view and edit the document as HTML code or markdown.
 * Find and replace.
 
 Here is a screenshot of the editor:
@@ -24,5 +24,5 @@ To build executables:
 
 `yarn dist`
 
-To install as an application, run the appropriate executable (e.g., .exe, .deb) in the dist folder after building with yarn.
+To install as an application, run the appropriate executable (e.g., .exe, .deb) in the dist folder after building.
 
