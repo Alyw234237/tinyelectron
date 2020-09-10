@@ -6,7 +6,7 @@ Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/t
 
 ## Screenshot
 
-[![](screenshot_.png)](screenshot.png?raw=true)
+[![](screenshot2.png)](screenshot.png?raw=true)
 
 
 ## Features
