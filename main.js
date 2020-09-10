@@ -39,9 +39,9 @@ function createWindow() {
     },
     spellcheck: false
   });
-  //if (!isDev) {
+  if (!isDev) {
     mainWindow.setMenuBarVisibility(false);
-  //}
+  }
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),

@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>TinyMCE Electron</title>
-    <!--<script src="https://www.tiny.cloud/labs/markdown/tinymce-snapshot/tinymce.min.js"></script>-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-    <!--<link href="https://www.tiny.cloud/labs/shared.css" rel="stylesheet">-->
+    <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self';">-->
     <style type="text/css">
       html, body, #editor { height: 100%; margin: 0px; }
       .mce-edit-area {display:flex !important;flex-flow:column;}
@@ -24,16 +22,9 @@
   </head>
   <body>
     <div id="editor" class="tinymce-full"></div>
-  <script src='./index.js'></script>
-  <!-- Load experimental markdown plugin -->
-  <script src="extraplugins/plugin-markdown.js"></script>
-  <link href="extraplugins/plugin-markdown-contentstyles.css" />
-  <!-- ^ Taken from:
-    https://www.tiny.cloud/labs/markdown/
-    https://www.tiny.cloud/labs/markdown/tinymce-snapshot/tinymce.min.js
-    https://www.tiny.cloud/labs/markdown/tinymce-snapshot/plugins/markdown/plugin.min.js *
-    https://www.tiny.cloud/labs/markdown/tinymce-snapshot/plugins/markdown/css/contentstyles.css *
-  -->
+    <script src='index.js'></script>
+    <!-- Load experimental markdown plugin -->
+    <script src="plugin-markdown.js"></script>
   </body>
 </html>
 

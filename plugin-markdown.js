@@ -16639,9 +16639,17 @@
       var converter = createJs();
       var syncConverter = createSync();
       editor.on("init", function(e) {
-        editor.dom.loadCSS(pluginUrl + "/css/contentstyles.css");
+
+        // Add css file
+        var cssText = `
+          [data-ephox-redpen-violation] {
+            outline-color: rgba(200, 0, 0, 0.2);
+            background-color: rgba(200, 0, 0, 0.2);
+          }`;
+        editor.dom.parseStyle(cssText);
         editor.serializer.addTempAttr("data-ephox-redpen-violation");
       });
+
       editor.on("GetContent", function(e) {
         if (e.format === "markdown") {
           e.content = syncConverter.htmlToMarkdown(e.content).content;
