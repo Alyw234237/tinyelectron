@@ -6,7 +6,7 @@ Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/t
 
 Features:
 
-* Open and save files as markdown, plain text, or HTML.
+* Open and save files as markdown, plain text, or HTML (rich-text).
 * Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines are included. All other styling—e.g. font size, font color, spacing, alignment, etc.—is disabled and automatically removed.
 * Editing and formatting keyboard shortcuts (e.g., ctrl+v for paste, ctrl+b for bold, ctrl+k for links, etc.).
 * Partial support for live conversion of markdown into rich-text in rich-text editing mode. For example, typing `# Header title` will make an H1 header and typing `**This text is bold.**` will make the text bold. Markdown-to-rich-text does not currently work with links, tables, or images.
