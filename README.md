@@ -4,7 +4,7 @@ A custom rich-text editor forked from [Moliman/tiny-electron](https://github.com
 
 Features:
 
-* Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines are included. All other styling—including e.g. font size and color—is disabled and automatically removed.
+* Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines are included. All other styling—including, e.g., font size, font color, spacing, alignment, etc.—is disabled and automatically removed.
 * Editing and formatting keyboard shortcuts (e.g., ctrl+v for paste, ctrl+b for bold, ctrl+k for links, etc.).
 * Partial support for while-typing conversion of markdown into rich-text (e.g., typing "# header title" and new line will make an H1 header).
 * Panes to view and edit the document as HTML code or markdown.
