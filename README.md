@@ -9,6 +9,7 @@ Features:
 * Partial support for while-typing conversion of basic markdown into rich-text. For example, typing "# header title" and enter will make an H1 header and typing "**This text is bold.**" and pressing space will bold the text.
 * Panes to view and edit the document as HTML code or markdown.
 * Find and replace functionality.
+* Saves as HTML or plain text but future support for opening and saving as markdown planned.
 
 Here is a screenshot of the editor:
 
