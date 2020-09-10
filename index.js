@@ -107,6 +107,13 @@ tinymce.init({
   link_quicklink: true,
   target_list: false,
   table_appearance_options: false,
+  table_advtab: false,
+  table_cell_advtab: false,
+  table_row_advtab: false,
+  table_resize_bars: false,
+  /*table_default_styles: {
+    width: '50%',
+  },*/
   image_dimensions: false,
   textpattern_patterns: [
     {start: '#', format: 'h1'},
