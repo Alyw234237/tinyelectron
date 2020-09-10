@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2019 Moliman
+Copyright (c) 2020 Aly W.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
