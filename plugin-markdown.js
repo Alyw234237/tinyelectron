@@ -230,7 +230,7 @@
             type: "boolean"
           },
           metadata: {
-            defaultValue: false,
+            defaultValue: true,
             description: "Enable support for document metadata (defined at the top of the document between `Â«Â«Â«` and `Â»Â»Â»` or between `---` and `---`).",
             type: "boolean"
           },
@@ -287,6 +287,8 @@
             backslashEscapesHTMLTags: true,
             emoji: true,
             splitAdjacentBlockquotes: true,
+            // Add ignore front matter (not working—had to set default true)
+            metadata: true,
           },
           original: {
             noHeaderId: true,
@@ -3533,7 +3535,9 @@
             txt += showdown.subParser("makeMarkdown.node")(children[i], globals);
           }
           txt += "](";
-          txt += "<" + node.getAttribute("href") + ">";
+          // Remove '<' and '>' from links
+          //txt += "<" + node.getAttribute("href") + ">";
+          txt += node.getAttribute("href");
           if (node.hasAttribute("title")) {
             txt += ' "' + node.getAttribute("title") + '"';
           }
@@ -3961,7 +3965,9 @@
                 }
                 var isNotNested = node.parentNode.nodeName.toLowerCase() !== "li";
                 var listPrefix = !isNotNested ? "\n" : "";
-                var listSuffix = isNotNested ? "\n\x3c!-- Comment ends this list --\x3e\n" : "";
+                // Don't print this into the markdown
+                //var listSuffix = isNotNested ? "\n\x3c!-- Comment ends this list --\x3e\n" : "";
+                var listSuffix = !isNotNested ? "\n" : "";
                 var result = listPrefix + txt.trim() + listSuffix;
                 /*console.log({
                   listPrefix: listPrefix,

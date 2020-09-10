@@ -90,7 +90,7 @@ function load() {
     fs.readFile(file[0], 'utf8', (err, data) => {
       if (err) throw err;
       change_working_directory(path.dirname(file[0]));
-      mainWindow.webContents.send('new-file', data);
+      mainWindow.webContents.send('new-file', path.extname(file[0]), data);
     });
   });
 }
@@ -103,13 +103,9 @@ function save(output) {
     // Save as text
     if(path.extname(filename) == ".txt" || path.extname(filename) == ".text") {
       output = output.text;
-      console.log("Hello world! ->");
-      console.log(output);
     // Save as markdown
     } else if(path.extname(filename) == ".md" || path.extname(filename) == ".markdown") {
       output = output.markdown;
-      console.log("Hello world! ->");
-      console.log(output);
     // Save as HTML (HTML or other extension)
     } else {
       output = output.html;

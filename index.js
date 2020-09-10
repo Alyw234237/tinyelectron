@@ -20,8 +20,18 @@ tinymce.PluginManager.add('menusave', function(editor, url) {
     });
 });
 
-ipcRenderer.on('new-file', function (event, data) {
-  tinymce.editors[0].setContent(data);
+// Open new file
+ipcRenderer.on('new-file', function (event, extension, data) {
+  // Open as HTML
+  if(extension == ".html" || extension == ".htm") {
+    tinymce.editors[0].setContent(data, {format: 'html'});
+  // Open as markdown
+  } else if(extension == ".md" || extension == ".markdown") {
+    tinymce.editors[0].setContent(data, {format: 'markdown'});
+  // Open as plain text (TXT or other extension)
+  } else {
+    tinymce.editors[0].setContent(data, {format: 'text'});
+  }
 });
 
 ipcRenderer.on("change-cwd", (event, newPath) =>{
@@ -68,12 +78,6 @@ tinymce.IconManager.add('custom', {
   }
 });
 
-tinymce.IconManager.add('markdown-labs-demo', {
-  icons: {
-
-  }
-});
-
 tinymce.init({
   selector: 'div.tinymce-full',
   height: "100%",
@@ -113,25 +117,33 @@ tinymce.init({
   table_appearance_options: false,
   image_dimensions: false,
   textpattern_patterns: [
-    {start: '*', end: '*', format: 'italic'},
-    {start: '**', end: '**', format: 'bold'},
-    {start: '***', end: '**', format: 'bold+italic'},
     {start: '#', format: 'h1'},
     {start: '##', format: 'h2'},
     {start: '###', format: 'h3'},
     {start: '####', format: 'h4'},
     {start: '#####', format: 'h5'},
     {start: '######', format: 'h6'},
+    {start: '*', end: '*', format: 'italic'},
+    {start: '_', end: '_', format: 'italic'},
+    {start: '**', end: '**', format: 'bold'},
+    {start: '__', end: '__', format: 'bold'},
+    {start: '***', end: '***', format: 'bold+italic'},
+    {start: '___', end: '___', format: 'bold+italic'},
+    {start: '~~', end: '~~', format: 'strikethrough'},
+    {start: '^', end: '^', format: 'superscript'}, // Custom
     {start: '1. ', cmd: 'InsertOrderedList'},
     {start: '* ', cmd: 'InsertUnorderedList'},
+    {start: '+ ', cmd: 'InsertUnorderedList' },
     {start: '- ', cmd: 'InsertUnorderedList' },
     {start: '> ', cmd: 'mceBlockQuote'},
     {start: '`', end: '`', format: 'code'},
-    {start: '```', format: 'code'}, // NOT WORKING
-    {start: '~~', end: '~~', format: 'strikethrough'},
+    {start: '```', end: '```', format: 'code'}, // DOESN'T WORK ON MULTI-LINE
     {start: '---', replacement: '—'},
     {start: '--', replacement: '–'},
     {start: '===', replacement: '<hr />'},
+    // Conflicts with bold + italic above
+    //{start: '***', replacement: '<hr />'},
+    // Missing: link, image, multi-line code, others
   ],
   toolbar_sticky: true,
   resize: false,
