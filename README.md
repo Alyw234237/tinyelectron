@@ -15,9 +15,6 @@ Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/t
 * Find and replace functionality in the rich-text view.
 
 ## Screenshot
-
-Here is a screenshot of the editor:
-
 [![](screenshot.png)](screenshot.png?raw=true)
 
 ## Installation
