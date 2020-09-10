@@ -80,8 +80,8 @@ tinymce.IconManager.add('custom', {
 
 tinymce.init({
   selector: 'div.tinymce-full',
-  //language: 'tooltips', // Use translations to make custom tooltips for buttons
-  //language_url: 'tooltips.js',
+  language: 'tooltips', // Use translations to make custom tooltips for buttons
+  language_url: 'tooltips.js',
   height: "100%",
   theme: 'silver',
   content_css: 'editor-area-styles.css',
@@ -203,42 +203,42 @@ tinymce.init({
         var items = [
           {
             type: 'menuitem',
-            text: 'H1',
+            text: 'H1 (Ctrl+Alt+1)',
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h1');
             }
           },
           {
             type: 'menuitem',
-            text: 'H2',
+            text: 'H2 (Ctrl+Alt+2)',
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h2');
             }
           },
           {
             type: 'menuitem',
-            text: 'H3',
+            text: 'H3 (Ctrl+Alt+3)',
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h3');
             }
           },
           {
             type: 'menuitem',
-            text: 'H4',
+            text: 'H4 (Ctrl+Alt+4)',
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h4');
             }
           },
           {
             type: 'menuitem',
-            text: 'H5',
+            text: 'H5 (Ctrl+Alt+5)',
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h5');
             }
           },
           {
             type: 'menuitem',
-            text: 'H6',
+            text: 'H6 Ctrl+Alt+6',
             onAction: function () {
               tinyMCE.execCommand('mceToggleFormat', false, 'h6');
             }
