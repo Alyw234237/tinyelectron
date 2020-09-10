@@ -15,6 +15,8 @@ Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/t
 * Find and replace functionality in the rich-text view.
 
 ## Screenshot
+<img src="screenshot.png" style="box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2), 10px 10px 10px 10px rgba(0, 0, 0, 0.19);">
+
 [![](screenshot.png)](screenshot.png?raw=true)
 
 ## Installation
