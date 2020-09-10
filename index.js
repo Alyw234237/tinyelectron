@@ -72,7 +72,7 @@ tinymce.init({
   plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern print',
   // ^ Note: Print seems to break the editor (buttons/menus and shortcuts) by giving focus to the OS somehow
   contextmenu_never_use_native: true,
-  contextmenu: 'undo redo | cut copy paste pasteastext selectall',
+  contextmenu: 'undo redo | cut copy copyasmarkdown paste pasteastext selectall',
   icons: 'custom',
   elementpath: false,
   branding: false,
@@ -168,7 +168,13 @@ tinymce.init({
             icon: 'save',
             text: 'Save (Ctrl+S)',
             onAction: function () {
-              ipcRenderer.send('call-save',tinymce.editors[0].getContent({format: 'raw'}));
+              // Get editor content in all formats and send to save
+              var editorContent = {
+                html: tinymce.editors[0].getContent({format: 'html'}),
+                text: tinymce.editors[0].getContent({format: 'text'}),
+                markdown: tinymce.editors[0].getContent({format: 'markdown'}),
+              }
+              ipcRenderer.send('call-save', editorContent);
             }
           },
           {
@@ -176,7 +182,13 @@ tinymce.init({
             icon: 'save',
             text: 'Save as (Shift+Ctrl+S)',
             onAction: function () {
-              ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}));
+              // Get editor content in all formats and send to save
+              var editorContent = {
+                html: tinymce.editors[0].getContent({format: 'html'}),
+                text: tinymce.editors[0].getContent({format: 'text'}),
+                markdown: tinymce.editors[0].getContent({format: 'markdown'}),
+              }
+              ipcRenderer.send('call-saveAs', editorContent);
             }
           }
         ];
@@ -293,6 +305,22 @@ tinymce.init({
     editor.ui.registry.addContextMenu('pasteastext', {
       update: function (element) {
         return 'pasteastext';
+      }
+    });
+
+    // Doesn't work perfectly... lists are still html... use markdown view to be sure
+    editor.ui.registry.addMenuItem('copyasmarkdown', {
+      icon: 'copy',
+      text: 'Copy as markdown',
+      onAction: function () {
+        var markdown = tinymce.editors[0].getContent({format: 'markdown'});
+        navigator.clipboard.writeText(markdown);
+      }
+    });
+
+    editor.ui.registry.addContextMenu('copyasmarkdown', {
+      update: function (element) {
+        return 'copyasmarkdown';
       }
     });
 

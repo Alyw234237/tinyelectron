@@ -123,9 +123,15 @@ function save(output) {
 }
 
 function saveas(output) {
+  var fullPath = '';
+  // If save as with an existing saved file, put file name as current one
+  if(filename)
+    fullPath = path.join(working_directory, filename);
+  else
+    fullpath = working_directory;
   var options = {
     //title: 'Select the file path to save',
-    defaultPath: working_directory,
+    defaultPath: fullPath,
     //buttonLabel: 'Save',
     filters: [
       { name: 'All Files', extensions: ['*'] },
