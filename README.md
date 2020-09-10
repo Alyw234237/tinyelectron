@@ -4,7 +4,7 @@ A simple and fast constrained rich-text and markdown editor using [Electron](htt
 
 Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/tiny-electron) (original was [bmaranville/el-tiny-editor](https://github.com/bmaranville/el-tiny-editor)).
 
-Features:
+## Features
 
 * Open and save files as markdown (MD), plain text (TXT), or restricted rich-text (HTML).
 * Views to edit the document as rich-text, markdown, or HTML code. Bidirectional live editing between rich-text and markdown views.
@@ -14,9 +14,13 @@ Features:
 * Editing and formatting keyboard shortcuts in rich-text mode (e.g., ctrl+v for paste, ctrl+b for bold, etc.).
 * Find and replace functionality in the rich-text view.
 
+## Screenshot
+
 Here is a screenshot of the editor:
 
 [![](screenshot.png)](screenshot.png?raw=true)
+
+## Installation
 
 To install dependencies and run:
 
@@ -30,7 +34,9 @@ To build executables:
 
 To install as an application, run the appropriate executable (e.g., .exe, .deb) in the dist folder after building.
 
-# Related
+## Related
+
+Similar live markdown editors:
 
 * [Typora](https://typora.io/)
 * [Mark Text](https://github.com/marktext/marktext)
