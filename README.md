@@ -4,7 +4,7 @@ A custom rich-text editor forked from [Moliman/tiny-electron](https://github.com
 
 Here is a screenshot:
 
-[screenshot.png](screenshot.png)
+[![](screenshot.png)](screenshot.png)
 
 To install dependencies and run:
 
