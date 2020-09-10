@@ -6,7 +6,7 @@ Features:
 
 * Restricted rich-text support. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines are included. All other styling—including, e.g., font size, font color, spacing, alignment, etc.—is disabled and automatically removed.
 * Editing and formatting keyboard shortcuts (e.g., ctrl+v for paste, ctrl+b for bold, ctrl+k for links, etc.).
-* Partial support for while-typing conversion of markdown into rich-text (e.g., typing "# header title" and new line will make an H1 header).
+* Partial support for while-typing conversion of basic markdown into rich-text. For example, typing "# header title" and enter will make an H1 header and typing "**This text is bold.**" and pressing space will bold the text.
 * Panes to view and edit the document as HTML code or markdown.
 * Find and replace.
 
