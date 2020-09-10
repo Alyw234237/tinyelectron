@@ -11,7 +11,7 @@ tinymce.PluginManager.add('menusave', function(editor, url) {
         onAction: () => ipcRenderer.send('call-save', tinymce.editors[0].getContent({format: 'raw'}))
     });
     editor.ui.registry.addMenuItem('menusaveas', {
-        text: 'Save As',
+        text: 'Save as',
         onAction: () => ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}))
     });
     editor.ui.registry.addMenuItem('menuquit', {
@@ -84,7 +84,7 @@ tinymce.init({
   theme: 'silver',
   content_css: 'editor-area-styles.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
-  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace code markdown preferences',
+  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace markdown code', // preferences (ADD BACK LATER)
   toolbar_mode: 'floating', // NOT WORKING!
   plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern menusave',
   contextmenu_never_use_native: true,
@@ -136,10 +136,7 @@ tinymce.init({
   ],
   toolbar_sticky: true,
   resize: false,
-  //width: 800,
   statusbar: false,
-  //skin: 'snow',
-  //icons: 'thin',
 
     extended_valid_elements : 'link[rel|href],' +
   'a[class|name|href|target|title|onclick|rel],'+
@@ -156,14 +153,13 @@ tinymce.init({
 
     editor.ui.registry.addMenuButton('file', {
       tooltip: 'File',
-      //icon: 'home',
       icon: 'edit-block',
       fetch: function (callback) {
         var items = [
           {
             type: 'menuitem',
             icon: 'new-document',
-            text: 'New',
+            text: 'New (Ctrl + n)',
             onAction: function () {
               editor.execCommand('mceNewDocument');
             }
@@ -171,7 +167,7 @@ tinymce.init({
           {
             type: 'menuitem',
             icon: 'browse',
-            text: 'Open',
+            text: 'Open (Ctrl + o)',
             onAction: function () {
               ipcRenderer.send('call-load');
             }
@@ -179,7 +175,7 @@ tinymce.init({
           {
             type: 'menuitem',
             icon: 'save',
-            text: 'Save',
+            text: 'Save (Ctrl + s)',
             onAction: function () {
               ipcRenderer.send('call-save',tinymce.editors[0].getContent({format: 'raw'}));
             }
@@ -187,7 +183,7 @@ tinymce.init({
           {
             type: 'menuitem',
             icon: 'save',
-            text: 'Save as',
+            text: 'Save as (Shift + Ctrl + s)',
             onAction: function () {
               ipcRenderer.send('call-saveAs',tinymce.editors[0].getContent({format: 'raw'}));
             }
@@ -253,7 +249,7 @@ tinymce.init({
       tooltip: 'Preferences',
       icon: 'preferences',
       onAction: function (_) {
-        // editor.insertContent('&nbsp;<strong>It\'s my button!</strong>&nbsp;');
+        // Add action here
       }
     });
 
@@ -327,6 +323,7 @@ tinymce.init({
     });
 
     editor.addShortcut('ctrl+m', 'Markdown', function () {
+      tinymce.activeEditor.execCommand('togglesidebar', false, 'markdown');
       // Open markdown pane (TO-DO)
     });
 
