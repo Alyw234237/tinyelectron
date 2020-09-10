@@ -10,7 +10,7 @@ Features:
 * Rich-text is constrained. Only headings, bold, italics, underline, strikethrough, superscript, subscript, bulleted lists, numbered lists, links, block quotes, code, tables, images, and horizontal lines are included. All other styling—e.g. font size, font color, spacing, alignment, etc.—is automatically filtered.
 * Rich-text is displayed with a fixed appearance. Modifiable via stylesheet (or in preferences in the future).
 * Editing and formatting keyboard shortcuts (e.g., ctrl+v for paste, ctrl+b for bold, ctrl+k for links, etc.).
-* Partial support for live conversion of markdown into rich-text in rich-text editing mode. For example, typing `# Header title` will make an H1 header and typing `**This text is bold.**` will make the text bold. Markdown-to-rich-text does not currently work with links, tables, or images.
+* Partial support for live conversion of markdown into rich-text in rich-text editing mode. For example, typing `# Header title` will make an H1 header and typing `**This text is bold.**` will make the text bold. This feature does not currently work for links, tables, or images.
 * Panes to view and edit the document as markdown or markdown. Bidirectional live editing between rich-text and markdown panes.
 * Find and replace functionality in the rich-text pane.
 
