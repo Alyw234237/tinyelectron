@@ -36,9 +36,13 @@ To install as an application, run the appropriate executable (e.g., .exe, .deb) 
 
 ## Related
 
-Similar live markdown editors:
+Similar live/rich-text markdown editors:
 
 * [Typora](https://typora.io/)
 * [Mark Text](https://github.com/marktext/marktext)
 * [Zettlr](https://github.com/Zettlr/Zettlr)
+* [Uncolored](https://github.com/n457/Uncolored)
+* [Abricotine](http://abricotine.brrd.fr/)
+* [ghostwriter](https://wereturtle.github.io/ghostwriter/)
+* [UNOTES](https://marketplace.visualstudio.com/items?itemName=ryanmcalister.Unotes)
 
