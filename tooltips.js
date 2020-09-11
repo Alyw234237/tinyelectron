@@ -5,7 +5,6 @@ tinymce.addI18n('tooltips',{
 "Copy": "Copy (Ctrl+C)",
 "Paste": "Paste (Ctrl+V)",
 "Select all": "Select all (Ctrl+A)",
-//"New document": "New (Ctrl+N)",
 "Bold": "Bold (Ctrl+B)",
 "Italic": "Italic (Ctrl+I)",
 "Underline": "Underline (Ctrl+U)",

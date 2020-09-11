@@ -94,9 +94,6 @@ tinymce.init({
   table_cell_advtab: false,
   table_row_advtab: false,
   table_resize_bars: false,
-  /*table_default_styles: {
-    width: '50%',
-  },*/
   image_dimensions: false,
   textpattern_patterns: [
     {start: '#', format: 'h1'},
@@ -306,34 +303,6 @@ tinymce.init({
       }
     });
 
-    // Function for custom date button
-    var toTimeHtml = function (date) {
-      return '<time datetime="' + date.toString() + '">' + date.toDateString() + '</time>';
-    };
-
-    // Add custom date button
-    editor.ui.registry.addButton('customDateButton', {
-      //text: 'My Button',
-      icon: 'insert-time',
-      //image: 'http://p.yusukekamiyamane.com/icons/search/fugue/icons/calendar-blue.png',
-      tooltip: 'Insert Current Date',
-      onAction: function (_) {
-        var html = toTimeHtml(new Date());
-        editor.insertContent(html);
-      },
-      onSetup: function (buttonApi) {
-        var editorEventCallback = function (eventApi) {
-          buttonApi.setDisabled(eventApi.element.nodeName.toLowerCase() === 'time');
-        };
-        editor.on('NodeChange', editorEventCallback);
-
-        /* onSetup should always return the unbind handlers */
-        return function (buttonApi) {
-          editor.off('NodeChange', editorEventCallback);
-        };
-      }
-    });
-
     // ADD CUSTOM CONTEXT MENU ITEMS ->
 
     editor.ui.registry.addMenuItem('pasteastext', {
@@ -352,12 +321,21 @@ tinymce.init({
       }
     });
 
-    // Doesn't work perfectly... lists are still html... use markdown view to be sure
+    editor.ui.registry.addMenuItem('copy', {
+      icon: 'copy',
+      text: 'Copy',
+      onAction: function () {
+        var html = tinymce.editors[0].selection.getContent({format: 'html'});
+        var text = tinymce.editors[0].selection.getContent({format: 'text'});
+        copyToClipboard(html, text);
+      }
+    });
+
     editor.ui.registry.addMenuItem('copyasmarkdown', {
       icon: 'copy',
       text: 'Copy as markdown',
       onAction: function () {
-        var markdown = tinymce.editors[0].getContent({format: 'markdown'});
+        var markdown = tinymce.editors[0].selection.getContent({format: 'markdown'});
         navigator.clipboard.writeText(markdown);
       }
     });
@@ -448,6 +426,23 @@ tinymce.init({
 
     editor.addShortcut('Shift+Ctrl+Z', 'Redo', function () {
       tinyMCE.execCommand('Redo');
+    });
+
+    function copyToClipboard(html, text) {
+      function listener(e) {
+        e.clipboardData.setData("text/html", html);
+        e.clipboardData.setData("text/plain", text);
+        e.preventDefault();
+      }
+      document.addEventListener("copy", listener);
+      document.execCommand("copy");
+      document.removeEventListener("copy", listener);
+    };
+
+    editor.addShortcut('Ctrl+C', 'Copy', function () {
+      var html = tinymce.editors[0].selection.getContent({format: 'html'});
+      var text = tinymce.editors[0].selection.getContent({format: 'text'});
+      copyToClipboard(html, text);
     });
 
     editor.addShortcut('Shift+Ctrl+V', 'Paste text', function () {

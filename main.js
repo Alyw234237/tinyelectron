@@ -30,6 +30,12 @@ let mainWindow;
 Menu.setApplicationMenu(Menu.buildFromTemplate(template));*/
 
 function createWindow() {
+  if(isDev)
+    var devTools = true;
+  else {
+    var devTools = false;
+  }
+
   // Find screen height so we can resize to 88% of screen height-wise
   let {width, height} = require('electron').screen.getPrimaryDisplay().size
   height = Math.round(height * 0.88);
@@ -39,18 +45,25 @@ function createWindow() {
     //frame: false,
     webPreferences: {
       nodeIntegration: true,
+      devTools: true,
     },
+
     spellcheck: false
   });
-  if (!isDev) {
+  //if (!isDev) {
     mainWindow.setMenuBarVisibility(false);
-  }
+  //}
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true,
   }));
+
+  mainWindow.webContents.on('did-finish-load',() => {
+    mainWindow.setTitle("TinyElectron");
+  });
+
   if (isDev) {
     // Open the DevTools.
     //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
