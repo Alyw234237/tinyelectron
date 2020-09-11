@@ -230,6 +230,7 @@
             type: "boolean"
           },
           metadata: {
+            //defaultValue: false,
             defaultValue: true,
             description: "Enable support for document metadata (defined at the top of the document between `Â«Â«Â«` and `Â»Â»Â»` or between `---` and `---`).",
             type: "boolean"
