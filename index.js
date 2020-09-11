@@ -2,7 +2,7 @@ const {ipcRenderer} = require('electron')
 const tinymce = require('tinymce/tinymce');
 
 // Upon opening new file
-ipcRenderer.on('open-file', function (event, extension, data) {
+ipcRenderer.on('opened-file', function (event, extension, data) {
   // Open as HTML
   if(extension == ".html" || extension == ".htm") {
     tinymce.editors[0].setContent(data, {format: 'html'});
@@ -14,6 +14,12 @@ ipcRenderer.on('open-file', function (event, extension, data) {
     tinymce.editors[0].setContent(data, {format: 'text'});
   }
   tinymce.editors[0].setDirty(false);
+});
+
+// Upon saving file
+ipcRenderer.on('saved-file', function () {
+  tinymce.editors[0].setDirty(false);
+  console.log("Success");
 });
 
 // Change current working directory

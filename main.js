@@ -112,7 +112,7 @@ function open() {
       if (err) throw err;
       change_working_directory(path.dirname(file[0]));
       filename = path.basename(file[0]);
-      mainWindow.webContents.send('open-file', path.extname(filename), data);
+      mainWindow.webContents.send('opened-file', path.extname(filename), data);
     });
   });
 }
@@ -136,6 +136,7 @@ function save(output) {
       if (err) {
         throw err;
       }
+      mainWindow.webContents.send('saved-file');
     });
   }
 }
