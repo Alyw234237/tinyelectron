@@ -529,9 +529,9 @@ tinymce.init({
     document.getElementById("editor_ifr").focus();
 
     // Detect markdown sidebar toggle state open/close
+    // https://stackoverflow.com/questions/46825012/how-to-open-close-sidebar-in-tinymce
     document.addEventListener('markdown-sidebar-toggle-state', function (e) {
       markdownSideBarToggleState = e.detail;
-      console.log("EventListener e.detail: " + e.detail)
     });
   },
 });

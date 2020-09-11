@@ -16672,13 +16672,13 @@
         editor.serializer.addTempAttr("data-ephox-redpen-violation");
       });
 
-      // Commenting this out breaks saving file as markdown (saves as HTML instead)
+      // tinymce.getContent() format handler for 'markdown'
       editor.on("GetContent", function(e) {
         if (e.format === "markdown") {
           e.content = syncConverter.htmlToMarkdown(e.content).content;
         }
       });
-      // Commenting this out breaks opening markdown file (opens as plain text instead)
+      // tinymce.setContent() format handler for 'markdown'
       editor.on("BeforeSetContent", function(e) {
         if (e.format === "markdown") {
           e.content = syncConverter.markdownToHtml(e.content).content;
@@ -16696,12 +16696,10 @@
         onShow: function(api) {
           var event = new CustomEvent('markdown-sidebar-toggle-state', {'detail': true});
           window.parent.document.dispatchEvent(event);
-          console.log("OnShow: " + event.detail)
         },
         onHide: function(api) {
           var event = new CustomEvent('markdown-sidebar-toggle-state', {'detail': false});
           window.parent.document.dispatchEvent(event);
-          console.log("OnHide: " + event.detail)
         },
       });
     });
