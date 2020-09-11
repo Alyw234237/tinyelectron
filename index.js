@@ -76,9 +76,9 @@ tinymce.init({
   contextmenu_never_use_native: true,
   contextmenu: 'undo redo | cut copy copyasmarkdown paste pasteastext selectall',
   icons: 'custom',
-  elementpath: false,
-  branding: false,
-  menubar: false,
+  elementpath: false, // Disable e.g. "table > tbody > tr > td > p" in status bar when status bar enabled
+  branding: false, // Disable TinyMCE branding in status bar
+  menubar: false, // Hide menu bar
   paste_auto_cleanup_on_paste: true,
   paste_remove_styles: true,
   paste_remove_styles_if_webkit: true,
@@ -139,8 +139,6 @@ tinymce.init({
 
   // https://www.tiny.cloud/docs/demo/custom-toolbar-button/
   setup: function (editor) {
-    var toggleState = false;
-
     editor.ui.registry.addMenuButton('file', {
       tooltip: 'File',
       icon: 'edit-block',
@@ -511,12 +509,17 @@ tinymce.init({
     editor.on('keydown', function(event) {
       var key = event.keyCode || event.which;
 
-      // Insert 8 non-breaking spaces with tab key and disable normal tab key handling
+      // Escape key: hide markdown sidebar if it's open
+      if (key == 27 && markdownSideBarToggleState == true) {
+        tinymce.activeEditor.execCommand('togglesidebar', false, 'markdown');
+      }
+
+      // Tab key: insert an em dash-sized space and disable normal tab key handling
       if (key == 9) {
-          editor.insertContent('&emsp;&emsp;');
-          event.preventDefault();
-          event.stopPropagation();
-          return;
+        editor.insertContent('&emsp;');
+        event.preventDefault();
+        event.stopPropagation();
+        return;
       }
     });
   },
@@ -524,6 +527,12 @@ tinymce.init({
   init_instance_callback : function(editor) {
     // Hack to give text box focus at start up
     document.getElementById("editor_ifr").focus();
-  },
 
+    // Detect markdown sidebar toggle state open/close
+    document.addEventListener('markdown-sidebar-toggle-state', function (e) {
+      markdownSideBarToggleState = e.detail;
+      console.log("EventListener e.detail: " + e.detail)
+    });
+  },
 });
+
