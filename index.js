@@ -19,7 +19,12 @@ ipcRenderer.on('opened-file', function (event, extension, data) {
 // Upon saving file
 ipcRenderer.on('saved-file', function () {
   tinymce.editors[0].setDirty(false);
-  console.log("Success");
+});
+
+// Upon fullscreen on/off
+ipcRenderer.on('fullscreen-focus', function () {
+    // Give text box focus again (NOT WORKING FOR SOME REASON...)
+    document.getElementById("editor_ifr").focus();
 });
 
 // Change current working directory
@@ -38,6 +43,9 @@ ipcRenderer.on("change-cwd", (event, newPath) =>{
     tinymce.activeEditor.documentBaseURI.setPath(newPath + "/");
   }
 });
+
+let fullscreenToggleState;
+let markdownSideBarToggleState;
 
 tinymce.baseURL = "node_modules/tinymce";
 
@@ -304,6 +312,11 @@ tinymce.init({
       icon: 'fullscreen',
       onAction: function (_) {
         ipcRenderer.send('call-fullscreen');
+        if(fullscreenToggleState == false) {
+          fullscreenToggleState = true;
+        } else {
+          fullscreenToggleState = false;
+        }
       }
     });
 
@@ -521,6 +534,11 @@ tinymce.init({
 
     editor.addShortcut('Ctrl+Shift+F', 'Fullscreen', function () {
       ipcRenderer.send('call-fullscreen');
+      if(fullscreenToggleState == false) {
+        fullscreenToggleState = true;
+      } else {
+        fullscreenToggleState = false;
+      }
     });
 
     // Handle individual keyboard keys
@@ -528,7 +546,10 @@ tinymce.init({
       var key = event.keyCode || event.which;
 
       // Escape key: hide markdown sidebar if it's open
-      if (key == 27 && markdownSideBarToggleState == true) {
+      if (key == 27 && fullscreenToggleState == true) {
+        ipcRenderer.send('call-fullscreen');
+        fullscreenToggleState = false;
+      } else if (key == 27 && markdownSideBarToggleState == true) {
         tinymce.activeEditor.execCommand('togglesidebar', false, 'markdown');
       }
 
@@ -558,6 +579,8 @@ tinymce.init({
     document.addEventListener('markdown-sidebar-toggle-state', function (e) {
       markdownSideBarToggleState = e.detail;
     });
+
+    fullscreenToggleState = false;
   },
 });
 
