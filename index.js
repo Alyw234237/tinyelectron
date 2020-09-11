@@ -75,9 +75,9 @@ tinymce.init({
   theme: 'silver',
   content_css: 'editor-area-styles.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
-  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr | searchreplace markdown code', // preferences (ADD BACK LATER)
+  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr searchreplace markdown code', // preferences (ADD BACK LATER)
   toolbar_mode: 'floating', // NOT WORKING!
-  plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern print',
+  plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern print fullpage',
   // ^ Note: Print seems to break the editor (buttons/menus and shortcuts) by giving focus to the OS somehow
   contextmenu_never_use_native: true,
   contextmenu: 'undo redo | cut copy copyasmarkdown paste pasteastext selectall',
@@ -85,22 +85,27 @@ tinymce.init({
   elementpath: false, // Disable e.g. "table > tbody > tr > td > p" in status bar when status bar enabled
   branding: false, // Disable TinyMCE branding in status bar
   menubar: false, // Hide menu bar
-  paste_auto_cleanup_on_paste: true,
-  paste_remove_styles: true,
+  paste_block_drop: true,
+  paste_data_images: true,
   paste_remove_styles_if_webkit: true,
-  paste_strip_class_attributes: true,
-  paste_as_text: false,
-  paste_word_valid_elements: "p,br,b,strong,i,em,u,strike,s,del,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,a,img,blockquote,code,pre,samp,table,tr,td,th,thread,tbody,hr",
+  //paste_word_valid_elements: "p,br,b,strong,i,em,u,strike,s,del,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,a,img,blockquote,code,pre,samp,table,tr,td,th,thread,tbody,hr",
+  smart_paste: false,
   link_context_toolbar: true,
   link_title: false,
   link_quicklink: true,
   target_list: false,
+  convert_urls: false,
   table_appearance_options: false,
   table_advtab: false,
   table_cell_advtab: false,
   table_row_advtab: false,
   table_resize_bars: false,
+  visual: false,
   image_dimensions: false,
+  object_resizing: false,
+  resize_img_proportional: true, // Disabled due to resizing off
+  fullpage_hide_in_source_view: false,
+
   textpattern_patterns: [
     {start: '#', format: 'h1'},
     {start: '##', format: 'h2'},
@@ -133,12 +138,7 @@ tinymce.init({
   toolbar_sticky: true,
   resize: false,
   statusbar: false,
-
-    extended_valid_elements : 'link[rel|href],' +
-  'a[class|name|href|target|title|onclick|rel],'+
-  'script[type|src],'+
-  'iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],'+
-  'img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]',
+  // protect: "/^---[.\r\n]*---/", // Protect markdown front matter/metadata (doesn't work right)
 
   // Save button callback function (JUST TO PREVENT THAT ERROR UPON CTRL+S)
   save_onsavecallback: function () { },

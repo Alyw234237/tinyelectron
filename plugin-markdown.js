@@ -285,7 +285,8 @@
             simpleLineBreaks: true,
             requireSpaceBeforeHeadingText: true,
             ghCompatibleHeaderId: true,
-            ghMentions: true,
+            //ghMentions: true,
+            ghMentions: false,
             backslashEscapesHTMLTags: true,
             emoji: true,
             splitAdjacentBlockquotes: true,
@@ -5733,7 +5734,7 @@
       tables: true,
       tasklists: true,
       strikethrough: true,
-      emoji: true
+      emoji: false
     };
     var createSync = function() {
       var converter = new showdown_default.a.Converter(showdownSettings);
