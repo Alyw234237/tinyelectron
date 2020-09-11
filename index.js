@@ -13,6 +13,7 @@ ipcRenderer.on('open-file', function (event, extension, data) {
   } else {
     tinymce.editors[0].setContent(data, {format: 'text'});
   }
+  tinymce.editors[0].setDirty(false);
 });
 
 // Change current working directory
