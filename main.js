@@ -73,7 +73,8 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('call-load', (event, arg) => load());
+ipcMain.on('call-new', (event, arg) => newfile());
+ipcMain.on('call-open', (event, arg) => open());
 ipcMain.on('call-save', (event, arg) => save(arg));
 ipcMain.on('call-saveAs', (event, arg) => saveas(arg));
 ipcMain.on('call-quit', (event, arg) => app.quit());
@@ -84,7 +85,11 @@ ipcMain.on('call-quit', (event, arg) => app.quit());
 let filename;
 let working_directory;
 
-function load() {
+function newfile() {
+  filename = null;
+}
+
+function open() {
   dialog.showOpenDialog({ properties: ["openFile"], defaultPath: working_directory }, function (file) {
     // Prevent error message if click cancel
     if(!file[0]) {
@@ -94,7 +99,7 @@ function load() {
       if (err) throw err;
       change_working_directory(path.dirname(file[0]));
       filename = path.basename(file[0]);
-      mainWindow.webContents.send('new-file', path.extname(filename), data);
+      mainWindow.webContents.send('open-file', path.extname(filename), data);
     });
   });
 }

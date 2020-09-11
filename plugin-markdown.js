@@ -13219,7 +13219,7 @@
           return Option.from(structures[location.lineNum]).bind(function(line) {
             return line.content.trim().length === 0 ? Option.some({
               description: "Launch insertion options",
-              example: "Ctrl + Space",
+              example: "Ctrl+Space",
               dialog: Option.none()
             }) : Option.none();
           });
@@ -16682,7 +16682,7 @@
         }
       });
       editor.ui.registry.addSidebar("markdown", {
-        tooltip: "Markdown (Ctrl + M)",
+        tooltip: "Markdown (Ctrl+M)",
         icon: "markdown",
         onSetup: function(api) {
           var sidebar = Sidebar(editor, converter, node_Element.fromDom(api.element()));

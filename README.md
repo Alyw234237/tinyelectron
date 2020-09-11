@@ -19,6 +19,10 @@ Forked and expanded on from [Moliman/tiny-electron](https://github.com/Moliman/t
 * Editing and formatting keyboard shortcuts in rich-text mode (e.g., ctrl+o = open, ctrl+v = paste, ctrl+b = bold, etc.).
 * Find and replace functionality in the rich-text view.
 
+## Bugs
+
+All the bugs! Editor is experimental and not for production use at this time. Markdown support is especially buggy.
+
 ## Installation
 
 To install dependencies and run:

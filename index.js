@@ -1,8 +1,8 @@
 const {ipcRenderer} = require('electron')
 const tinymce = require('tinymce/tinymce');
 
-// Open new file
-ipcRenderer.on('new-file', function (event, extension, data) {
+// Upon opening new file
+ipcRenderer.on('open-file', function (event, extension, data) {
   // Open as HTML
   if(extension == ".html" || extension == ".htm") {
     tinymce.editors[0].setContent(data, {format: 'html'});
@@ -15,11 +15,12 @@ ipcRenderer.on('new-file', function (event, extension, data) {
   }
 });
 
+// Change current working directory
 ipcRenderer.on("change-cwd", (event, newPath) =>{
   if (tinymce.activeEditor) {
     var doc = tinymce.activeEditor.getDoc(),
-        head = doc.head,
-        base;
+      head = doc.head,
+      base;
     if (head.getElementsByTagName("base").length == 0) {
       base = document.createElement("base");
       head.appendChild(base);
@@ -152,7 +153,23 @@ tinymce.init({
             icon: 'new-document',
             text: 'New (Ctrl+N)',
             onAction: function () {
-              editor.execCommand('mceNewDocument');
+              if(tinymce.editors[0].isDirty()) {
+                var answer = confirm("Unsaved changes. Continue without saving?");
+                if (answer == true) {
+                  editor.resetContent();
+                  ipcRenderer.send('call-new');
+                } else {
+                  return;
+                }
+              } else {
+                var answer = confirm("Close the current file and create a new one?");
+                if (answer == true) {
+                  editor.resetContent();
+                  ipcRenderer.send('call-new');
+                } else {
+                  return;
+                }
+              }
             }
           },
           {
@@ -160,7 +177,16 @@ tinymce.init({
             icon: 'browse',
             text: 'Open (Ctrl+O)',
             onAction: function () {
-              ipcRenderer.send('call-load');
+              if(tinymce.editors[0].isDirty()) {
+                var answer = confirm("Unsaved changes. Continue without saving?");
+                if (answer == true) {
+                  ipcRenderer.send('call-open');
+                } else {
+                  return;
+                }
+              } else {
+                ipcRenderer.send('call-open');
+              }
             }
           },
           {
@@ -190,7 +216,24 @@ tinymce.init({
               }
               ipcRenderer.send('call-saveAs', editorContent);
             }
-          }
+          },
+          {
+            type: 'menuitem',
+            icon: 'close',
+            text: 'Quit (Ctrl+W)',
+            onAction: function () {
+              if(tinymce.editors[0].isDirty()) {
+                var response = confirm("Unsaved changes. Continue without saving?");
+                if (response == true) {
+                  ipcRenderer.send('call-quit');
+                } else {
+                  return;
+                }
+              } else {
+                ipcRenderer.send('call-quit');
+              }
+            }
+          },
         ];
         callback(items);
       }
@@ -328,11 +371,36 @@ tinymce.init({
     // OVERRIDE SHORTCUTS -> https://stackoverflow.com/questions/19791696/overriding-shortcut-assignments-in-tinymce
 
     editor.addShortcut('Ctrl+N', 'New', function () {
-      editor.execCommand('mceNewDocument');
+      if(tinymce.editors[0].isDirty()) {
+        var answer = confirm("Unsaved changes. Continue without saving?");
+        if (answer == true) {
+          editor.resetContent();
+          ipcRenderer.send('call-new');
+        } else {
+          return;
+        }
+      } else {
+        var answer = confirm("Close the current file and create a new one?");
+        if (answer == true) {
+          editor.resetContent();
+          ipcRenderer.send('call-new');
+        } else {
+          return;
+        }
+      }
     });
 
     editor.addShortcut('Ctrl+O', 'Open', function () {
-      ipcRenderer.send('call-load');
+      if(tinymce.editors[0].isDirty()) {
+        var answer = confirm("Unsaved changes. Continue without saving?");
+        if (answer == true) {
+          ipcRenderer.send('call-open');
+        } else {
+          return;
+        }
+      } else {
+        ipcRenderer.send('call-open');
+      }
     });
 
     editor.addShortcut('Ctrl+S', 'Save', function () {
@@ -364,8 +432,17 @@ tinymce.init({
       // ^ -> https://stackoverflow.com/questions/46825012/how-to-open-close-sidebar-in-tinymce
     });
 
-    editor.addShortcut('Ctrl+W', 'Close', function () {
-      ipcRenderer.send('call-quit');
+    editor.addShortcut('Ctrl+W', 'Quit', function () {
+      if(tinymce.editors[0].isDirty()) {
+        var response = confirm("Unsaved changes. Continue without saving?");
+        if (response == true) {
+          ipcRenderer.send('call-quit');
+        } else {
+          return;
+        }
+      } else {
+        ipcRenderer.send('call-quit');
+      }
     });
 
     editor.addShortcut('Shift+Ctrl+Z', 'Redo', function () {
