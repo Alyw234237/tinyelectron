@@ -15683,9 +15683,7 @@
             "white-space": "pre-wrap",
             "box-sizing": "border-box",
             "min-width": "100%",
-            "max-width": "100%",
-            width: "54vh",
-            resize: "none"
+            "max-width": "100%"
           },
           selectOnFocus: false,
           inputBehaviours: Behaviour_derive([
@@ -16697,7 +16695,9 @@
         },
         onShow: function(api) {
           var event = new CustomEvent('markdown-sidebar-toggle-state', {'detail': true});
-          window.parent.document.dispatchEvent(event);
+          // Hack to fix width of the markdown pane
+          var width = (window.innerWidth * 0.50).toString() + "px";
+          document.getElementsByClassName("markdown-preview")[0].style.width = width;
         },
         onHide: function(api) {
           var event = new CustomEvent('markdown-sidebar-toggle-state', {'detail': false});

@@ -92,6 +92,8 @@ ipcMain.on('call-save', (event, arg) => save(arg));
 ipcMain.on('call-saveAs', (event, arg) => saveas(arg));
 ipcMain.on('call-quit', (event, arg) => app.quit());
 
+ipcMain.on('call-fullscreen', (event, arg) => fullscreentoggle());
+
 
 // TINY MCE-SCRIPT
 
@@ -173,5 +175,13 @@ function saveas(output) {
 function change_working_directory(new_path) {
   working_directory = new_path;
   mainWindow.webContents.send('change-cwd', working_directory);
+}
+
+function fullscreentoggle() {
+  if(mainWindow.isFullScreen() == false) {
+    mainWindow.setFullScreen(true);
+  } else {
+    mainWindow.setFullScreen(false);
+  }
 }
 

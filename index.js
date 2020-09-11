@@ -75,7 +75,7 @@ tinymce.init({
   theme: 'silver',
   content_css: 'editor-area-styles.css',
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }',
-  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr searchreplace markdown code', // preferences (ADD BACK LATER)
+  toolbar: 'file undo redo heading bold italic underline strikethrough superscript subscript bullist numlist link blockquote codeformat table image hr searchreplace markdown code fullscreen', // preferences (ADD BACK LATER)
   toolbar_mode: 'floating', // NOT WORKING!
   plugins: 'code link image table markdown lists paste save searchreplace autolink hr textpattern print fullpage',
   // ^ Note: Print seems to break the editor (buttons/menus and shortcuts) by giving focus to the OS somehow
@@ -299,6 +299,14 @@ tinymce.init({
       }
     });
 
+    editor.ui.registry.addButton('fullscreen', {
+      tooltip: 'Fullscreen (Ctr+Shift+F',
+      icon: 'fullscreen',
+      onAction: function (_) {
+        ipcRenderer.send('call-fullscreen');
+      }
+    });
+
     editor.ui.registry.addButton('preferences', {
       tooltip: 'Preferences',
       icon: 'preferences',
@@ -511,6 +519,10 @@ tinymce.init({
       tinyMCE.execCommand('RemoveFormat');
     });
 
+    editor.addShortcut('Ctrl+Shift+F', 'Fullscreen', function () {
+      ipcRenderer.send('call-fullscreen');
+    });
+
     // Handle individual keyboard keys
     editor.on('keydown', function(event) {
       var key = event.keyCode || event.which;
@@ -528,6 +540,13 @@ tinymce.init({
         return;
       }
     });
+
+    // Hack to fix width of the markdown pane
+    function handleResizeWindow() {
+      var width = (window.innerWidth * 0.50).toString() + "px";
+      document.getElementsByClassName("markdown-preview")[0].style.width = width;
+    }
+    editor.on('ResizeWindow', handleResizeWindow);
   },
 
   init_instance_callback : function(editor) {
