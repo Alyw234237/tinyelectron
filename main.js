@@ -7,6 +7,8 @@ const beautify = require('js-beautify').html;
 const isDev = process.mainModule.filename.indexOf('app.asar') === -1;
 
 let mainWindow;
+let filename;
+let working_directory;
 
 function createWindow() {
   if(isDev)
@@ -21,7 +23,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: height,
-    //frame: false,
+    frame: false, // For custom title bar
+    titleBarStyle: 'hidden', // For custom title bar
     webPreferences: {
       nodeIntegration: true,
       devTools: true,
@@ -73,14 +76,9 @@ ipcMain.on('call-quit', (event, arg) => app.quit());
 
 ipcMain.on('call-fullscreen', (event, arg) => fullscreentoggle());
 
-
-// TINY MCE-SCRIPT
-
-let filename;
-let working_directory;
-
 function newfile() {
   filename = null;
+  mainWindow.webContents.send('newly-made-file');
 }
 
 function open() {
@@ -93,7 +91,7 @@ function open() {
       if (err) throw err;
       change_working_directory(path.dirname(file[0]));
       filename = path.basename(file[0]);
-      mainWindow.webContents.send('opened-file', path.extname(filename), data);
+      mainWindow.webContents.send('opened-file', filename, path.extname(filename), data);
     });
   });
 }
@@ -117,7 +115,7 @@ function save(output) {
       if (err) {
         throw err;
       }
-      mainWindow.webContents.send('saved-file');
+      mainWindow.webContents.send('saved-file', filename);
     });
   }
 }
@@ -125,10 +123,11 @@ function save(output) {
 function saveas(output) {
   var fullPath = '';
   // If save as with an existing saved file, put file name as current one
-  if(filename)
+  if(filename) {
     fullPath = path.join(working_directory, filename);
-  else
+  } else {
     fullpath = working_directory;
+  }
   var options = {
     //title: 'Select the file path to save',
     defaultPath: fullPath,
@@ -163,6 +162,6 @@ function fullscreentoggle() {
     mainWindow.setFullScreen(false);
     mainWindow.setMenuBarVisibility(false);
   }
-  mainWindow.webContents.send('fullscreen-focus');
+  mainWindow.webContents.send('fullscreen-change');
 }
 

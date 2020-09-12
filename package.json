@@ -11,6 +11,7 @@
   "author": "Aly W. <alyw234237@github.com>",
   "license": "MIT",
   "dependencies": {
+    "custom-electron-titlebar": "^3.2.4",
     "js-beautify": "^1.10.2",
     "tinymce": "^5.4.2"
   },

@@ -14,6 +14,12 @@ body {
   line-height: 1.6;
 }
 
+/* New title bar + toolbar style reduce up-top spacing */
+p {
+  margin-top: 0em;
+  padding-top: 0em;
+}
+
 a {
   /*color: #8153ed;*/ /* purple */
   /*color: #0074D9;*/ /* CLRS blue */

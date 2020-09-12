@@ -6,25 +6,45 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
     <style type="text/css">
       html, body, #editor { height: 100%; margin: 0px; }
-      .mce-edit-area {display:flex !important;flex-flow:column;}
-      .mce-edit-area iframe {flex:1 1 auto;}
-      .mce-tinymce {height:100%;}
-      .mce-tinymce.mce-container {height:100%;border:0; }
-      .mce-panel {border:0}
-      .mce-container-body.mce-stack-layout {display: flex; flex-flow: column;height: 100%;}
-      .mce-stack-layout-item {flex: 0 0 auto;}
-      .mce-edit-area {flex:1 1 auto;}
+      .mce-edit-area { display: flex !important; flex-flow: column; }
+      .mce-edit-area iframe { flex: 1 1 auto; }
+      .mce-tinymce { height: 100%; }
+      .mce-tinymce.mce-container { height: 100%; border: 0; }
+      .mce-panel { border: 0; }
+      .mce-container-body.mce-stack-layout { display: flex; flex-flow: column; height: 100%; }
+      .mce-stack-layout-item { flex: 0 0 auto; }
+      .mce-edit-area { flex:1 1 auto; }
+
+      /* Style the title bar */
+      .window-title	{
+        padding-top: 8px !important;
+        font-size: 14px !important;
+        font-family: -apple-system, BlinkMacSystemFont, "helvetica neue", helvetica, roboto, noto, "segoe ui", arial, sans-serif !important;
+        color: #808080 !important;
+      }
+
+      /* Remove toolbar top border */
+      .tox-tinymce {
+        border-top-color: #FFFFFF !important;
+        border: 0 !important;
+      }
+
+      /* Remove toolbar top border */
+      .tox-toolbar__primary {
+        background-image:none !important;
+      }
+
       /* Change toolbar icon colors */
-      .tox .tox-tbtn svg {
+      .tox-tbtn svg {
         fill: #5f6368 !important;
       }
 
       /* Change dialogue box button colors (e.g., link, image, find/replace, etc. */
       /* NOT WORKING... */
       .tox .tox-button .tox-button--secondary {
-        color: #000000;
-        background-color: #f0f0f0;
-        border-color: #f0f0f0;
+        color: #000000 !important;
+        background-color: #f0f0f0 !important;
+        border-color: #f0f0f0 !important;
       }
 
       /* Customize scrollbar appearance (for markdown editor area) */

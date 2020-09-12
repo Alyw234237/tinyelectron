@@ -19,5 +19,6 @@ tinymce.addI18n('tooltips',{
 "Paste as text": "Paste as text (Shift+Ctrl+V)",
 "Insert link": "Insert link (Ctrl+K)",
 "Find and replace": "Find and replace (Ctrl+F or Ctrl+H)",
+"Source Code": "HTML code",
 });
 

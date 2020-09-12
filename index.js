@@ -1,8 +1,28 @@
 const {ipcRenderer} = require('electron')
 const tinymce = require('tinymce/tinymce');
 
+// https://github.com/AlexTorresSk/custom-electron-titlebar
+const customTitlebar = require('custom-electron-titlebar');
+ 
+let titlebar = new customTitlebar.Titlebar({
+  backgroundColor: customTitlebar.Color.fromHex('#ffffff'),
+  menu: null,
+});
+
+let persistFilename = "untitled";
+let fullscreenToggleState = false;
+let markdownSideBarToggleState = false;
+let titlebarHeight, titlebarDisplay;
+
+// Upon saving file
+ipcRenderer.on('newly-made-file', function () {
+  tinymce.activeEditor.resetContent();
+  persistFilename = "untitled";
+  titlebar.updateTitle(persistFilename);
+});
+
 // Upon opening new file
-ipcRenderer.on('opened-file', function (event, extension, data) {
+ipcRenderer.on('opened-file', function (event, filename, extension, data) {
   // Open as HTML
   if(extension == ".html" || extension == ".htm") {
     tinymce.editors[0].setContent(data, {format: 'html'});
@@ -13,18 +33,37 @@ ipcRenderer.on('opened-file', function (event, extension, data) {
   } else {
     tinymce.editors[0].setContent(data, {format: 'text'});
   }
+  tinymce.activeEditor.undoManager.clear();
   tinymce.editors[0].setDirty(false);
+  titlebar.updateTitle(filename);
+  persistFilename = filename;
 });
 
 // Upon saving file
-ipcRenderer.on('saved-file', function () {
+ipcRenderer.on('saved-file', function (event, filename) {
   tinymce.editors[0].setDirty(false);
+  titlebar.updateTitle(filename);
+  persistentFilename = filename;
 });
 
 // Upon fullscreen on/off
-ipcRenderer.on('fullscreen-focus', function () {
-    // Give text box focus again (NOT WORKING FOR SOME REASON...)
-    document.getElementById("editor_ifr").focus();
+ipcRenderer.on('fullscreen-change', function () {
+  var titlebar = document.getElementsByClassName("titlebar")[0];
+  var bodycontainer = document.getElementsByClassName("container-after-titlebar")[0];
+  if(fullscreenToggleState == false) {
+    titlebarDisplay = titlebar.style.display;
+    titlebar.style.display = "none";
+    titlebarHeight = bodycontainer.style.top;
+    bodycontainer.style.top = "0px";
+    fullscreenToggleState = true;
+  } else {
+    titlebar.style.display = titlebarDisplay;
+    bodycontainer.style.top = titlebarHeight;
+    fullscreenToggleState = false;
+  }
+
+  // Give text box focus again (NOT WORKING FOR SOME REASON...)
+  document.getElementById("editor_ifr").focus();
 });
 
 // Change current working directory
@@ -43,9 +82,6 @@ ipcRenderer.on("change-cwd", (event, newPath) =>{
     tinymce.activeEditor.documentBaseURI.setPath(newPath + "/");
   }
 });
-
-let fullscreenToggleState;
-let markdownSideBarToggleState;
 
 tinymce.baseURL = "node_modules/tinymce";
 
@@ -164,17 +200,15 @@ tinymce.init({
             text: 'New (Ctrl+N)',
             onAction: function () {
               if(tinymce.editors[0].isDirty()) {
-                var answer = confirm("Unsaved changes. Continue without saving?");
-                if (answer == true) {
-                  editor.resetContent();
+                var response = confirm("Unsaved changes. Continue without saving?");
+                if (response == true) {
                   ipcRenderer.send('call-new');
                 } else {
                   return;
                 }
               } else {
-                var answer = confirm("Close the current file and create a new one?");
-                if (answer == true) {
-                  editor.resetContent();
+                var response = confirm("Close the current file and create a new one?");
+                if (response == true) {
                   ipcRenderer.send('call-new');
                 } else {
                   return;
@@ -188,8 +222,8 @@ tinymce.init({
             text: 'Open (Ctrl+O)',
             onAction: function () {
               if(tinymce.editors[0].isDirty()) {
-                var answer = confirm("Unsaved changes. Continue without saving?");
-                if (answer == true) {
+                var response = confirm("Unsaved changes. Continue without saving?");
+                if (response == true) {
                   ipcRenderer.send('call-open');
                 } else {
                   return;
@@ -312,11 +346,6 @@ tinymce.init({
       icon: 'fullscreen',
       onAction: function (_) {
         ipcRenderer.send('call-fullscreen');
-        if(fullscreenToggleState == false) {
-          fullscreenToggleState = true;
-        } else {
-          fullscreenToggleState = false;
-        }
       }
     });
 
@@ -376,17 +405,15 @@ tinymce.init({
 
     editor.addShortcut('Ctrl+N', 'New', function () {
       if(tinymce.editors[0].isDirty()) {
-        var answer = confirm("Unsaved changes. Continue without saving?");
-        if (answer == true) {
-          editor.resetContent();
+        var response = confirm("Unsaved changes. Continue without saving?");
+        if (response == true) {
           ipcRenderer.send('call-new');
         } else {
           return;
         }
       } else {
-        var answer = confirm("Close the current file and create a new one?");
-        if (answer == true) {
-          editor.resetContent();
+        var response = confirm("Close the current file and create a new one?");
+        if (response == true) {
           ipcRenderer.send('call-new');
         } else {
           return;
@@ -396,8 +423,8 @@ tinymce.init({
 
     editor.addShortcut('Ctrl+O', 'Open', function () {
       if(tinymce.editors[0].isDirty()) {
-        var answer = confirm("Unsaved changes. Continue without saving?");
-        if (answer == true) {
+        var response = confirm("Unsaved changes. Continue without saving?");
+        if (response == true) {
           ipcRenderer.send('call-open');
         } else {
           return;
@@ -534,11 +561,6 @@ tinymce.init({
 
     editor.addShortcut('Ctrl+Shift+F', 'Fullscreen', function () {
       ipcRenderer.send('call-fullscreen');
-      if(fullscreenToggleState == false) {
-        fullscreenToggleState = true;
-      } else {
-        fullscreenToggleState = false;
-      }
     });
 
     // Handle individual keyboard keys
@@ -548,7 +570,6 @@ tinymce.init({
       // Escape key: hide markdown sidebar if it's open
       if (key == 27 && fullscreenToggleState == true) {
         ipcRenderer.send('call-fullscreen');
-        fullscreenToggleState = false;
       } else if (key == 27 && markdownSideBarToggleState == true) {
         tinymce.activeEditor.execCommand('togglesidebar', false, 'markdown');
       }
@@ -574,13 +595,17 @@ tinymce.init({
     // Hack to give text box focus at start up
     document.getElementById("editor_ifr").focus();
 
+    editor.on('Dirty', function(e) {
+      titlebar.updateTitle(persistFilename + " *");
+    });
+
+    titlebar.updateTitle(persistFilename);
+
     // Detect markdown sidebar toggle state open/close
     // https://stackoverflow.com/questions/46825012/how-to-open-close-sidebar-in-tinymce
     document.addEventListener('markdown-sidebar-toggle-state', function (e) {
       markdownSideBarToggleState = e.detail;
     });
-
-    fullscreenToggleState = false;
   },
 });
 
